@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSP — Patient Support Programs | Carnot Salud Femenina 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --v:#7c3aed;--p:#db2777;--b:#2563eb;
+  --bg:#f8f5ff;--text:#1e1b4b;
+  --vl:#ede9fe;--pl:#fce7f3;--bl:#dbeafe;
+  --vm:#a78bfa;
+  --sh:0 4px 24px rgba(124,58,237,.12);
+  --shh:0 12px 40px rgba(124,58,237,.22);
+  --r:14px;
+  --cg:#3a7d44;--cb2:#3b5ca9;--cg-l:#eaf5eb;--cb-l:#e8edf7;
+}
+html,body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--bg);overflow:hidden;width:100vw;height:100vh}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.08)}66%{transform:translate(-20px,15px) scale(.95)}}
+@keyframes lineGrow{from{width:0}to{width:60px}}
+@keyframes dpIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes dotRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+.anim-item{opacity:0}
+.anim-item.entered{animation:fadeUp .5s ease both}
+.anim-item:nth-child(1).entered{animation-delay:.05s}
+.anim-item:nth-child(2).entered{animation-delay:.12s}
+.anim-item:nth-child(3).entered{animation-delay:.19s}
+.anim-item:nth-child(4).entered{animation-delay:.26s}
+.anim-item:nth-child(5).entered{animation-delay:.33s}
+.anim-item:nth-child(6).entered{animation-delay:.40s}
+
+
+/* ── HERO ── */
+.ws-hero{min-height:100vh;background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 40%,#db2777 80%,#f43f5e 100%);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);animation:blobFloat 8s ease-in-out infinite;pointer-events:none;opacity:.35}
+.blob-1{width:320px;height:320px;background:#a78bfa;top:-80px;left:-60px;animation-delay:0s}
+.blob-2{width:280px;height:280px;background:#f472b6;bottom:-60px;right:-40px;animation-delay:3s}
+.blob-3{width:200px;height:200px;background:#60a5fa;top:40%;left:40%;animation-delay:1.5s}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;margin-bottom:1.3rem}
+.ws-hero h1{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;line-height:1.1;margin-bottom:.45rem;text-shadow:0 2px 20px rgba(0,0,0,.2)}
+.ws-hero h2{font-size:clamp(1rem,2.2vw,1.4rem);font-weight:300;opacity:.9;margin-bottom:1.2rem}
+.hero-body{font-size:clamp(.82rem,1.4vw,1rem);max-width:640px;opacity:.88;line-height:1.6;margin-bottom:2rem}
+.hero-stats{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.hero-stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:var(--r);padding:.85rem 1.3rem;backdrop-filter:blur(8px)}
+.hero-stat .num{font-size:1.5rem;font-weight:800;display:block}
+.hero-stat .lbl{font-size:.72rem;opacity:.85}
+.cta-btn{background:#fff;color:var(--v);border:none;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:700;padding:.75rem 2.2rem;border-radius:999px;cursor:pointer;box-shadow:0 4px 24px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;text-decoration:none;display:inline-block}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+
+
+
+/* ── SECTION HEADER (legacy) ── */
+.sec-header{margin-bottom:1rem}
+.sec-tag{display:inline-block;background:var(--vl);color:var(--v);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .8rem;border-radius:999px;margin-bottom:.5rem}
+.sec-header h2{font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:800;color:var(--text)}
+.sec-header h2::after{content:'';display:block;height:3px;width:60px;margin-top:.35rem;background:linear-gradient(90deg,var(--v),var(--p));border-radius:2px}
+.sec-header p{font-size:.82rem;color:#6b7280;margin-top:.25rem}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:var(--r);border-left:4px solid var(--v);box-shadow:var(--sh);padding:.9rem;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.card::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-100%);transition:transform .5s ease}
+.card:hover::after{transform:translateX(100%)}
+.card .ci{width:2.2rem;height:2.2rem;border-radius:.55rem;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:.65rem;color:#fff}
+.card h3{font-size:.88rem;font-weight:700;margin-bottom:.25rem}
+.card p{font-size:.74rem;color:#6b7280;line-height:1.45}
+
+/* ── GRIDS ── */
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem}
+@media(max-width:1100px){.g5{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.g5,.g4,.g3,.g2{grid-template-columns:1fr}.ws-section{padding:3rem 1rem}}
+
+/* ── FLIP CARD SYSTEM ── */
+.flip-card{perspective:1200px}
+.flip-inner{position:relative;width:100%;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front{display:block;width:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-back{position:absolute;inset:0;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;background:linear-gradient(135deg,var(--v),var(--p));display:flex;align-items:center;justify-content:center}
+
+/* ── DETAIL PANEL ── */
+#detail-panel{position:fixed;inset:0;z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#detail-panel.open{opacity:1;pointer-events:all}
+.dp-backdrop{position:absolute;inset:0;background:rgba(30,27,75,.58);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.dp-inner{position:relative;z-index:1;background:#fff;border-radius:20px;width:min(600px,90vw);max-height:82vh;overflow-y:auto;box-shadow:0 24px 80px rgba(30,27,75,.32);padding:1.6rem;animation:dpIn .28s ease}
+.dp-header{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #f3f4f6}
+.dp-icon{width:2.6rem;height:2.6rem;border-radius:.75rem;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;flex-shrink:0}
+.dp-title{font-size:.98rem;font-weight:700;color:var(--text);line-height:1.25}
+.dp-sub{font-size:.69rem;color:#6b7280;margin-top:.18rem}
+.dp-close{margin-left:auto;background:none;border:1px solid #e5e7eb;border-radius:50%;width:1.9rem;height:1.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:.75rem;flex-shrink:0;transition:background .15s,color .15s}
+.dp-close:hover{background:#f3f4f6;color:var(--text)}
+.back-item{padding:.55rem 0;border-bottom:1px solid #f3f4f6;font-size:.74rem}
+.back-item:last-child{border-bottom:none}
+.back-item .bi-name{font-weight:700;color:var(--text);margin-bottom:.12rem}
+.back-item .bi-tag{display:inline-block;font-size:.59rem;font-weight:700;text-transform:uppercase;padding:.13rem .44rem;border-radius:999px;margin-bottom:.2rem}
+.back-item .bi-detail{color:#6b7280;line-height:1.45;margin-bottom:.3rem}
+.back-item a{font-size:.69rem;font-weight:700;color:var(--v);text-decoration:none;display:inline-flex;align-items:center;gap:.22rem}
+.back-item a:hover{color:var(--p)}
+
+/* ── METRIC CARDS ── */
+.mc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem;cursor:pointer;transition:transform .22s,box-shadow .22s;display:flex;align-items:flex-start;gap:.85rem}
+.mc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.mi{width:2.6rem;height:2.6rem;border-radius:.7rem;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;flex-shrink:0}
+.mi.mv{background:linear-gradient(135deg,var(--v),#a78bfa)}
+.mi.mp{background:linear-gradient(135deg,var(--p),#f472b6)}
+.mi.mb{background:linear-gradient(135deg,var(--b),#60a5fa)}
+.mi.mg{background:linear-gradient(135deg,#059669,#34d399)}
+.mn{font-size:1.35rem;font-weight:800;background:linear-gradient(135deg,var(--v),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ml{font-size:.72rem;color:#6b7280}
+.ms{font-size:.67rem;color:#9ca3af;margin-top:.12rem}
+
+/* ── CHARTS ── */
+.cw{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem}
+.ct{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.8rem}
+.cw canvas{max-height:260px;min-height:180px}
+
+/* ── LAB CARDS ── */
+.lc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1.1rem;cursor:pointer;transition:transform .22s,box-shadow .22s;border-top:3px solid var(--v);position:relative;overflow:hidden}
+.lc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.lc::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-100%);transition:transform .5s ease}
+.lc:hover::after{transform:translateX(100%)}
+.lh{display:flex;align-items:center;gap:.7rem;margin-bottom:.75rem}
+.lic{width:2.4rem;height:2.4rem;border-radius:.55rem;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff}
+.ln{font-size:.95rem;font-weight:700}
+.lps{display:flex;flex-direction:column;gap:.3rem}
+.lp-item{font-size:.72rem;color:#6b7280;display:flex;align-items:center;gap:.4rem}
+.lp-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--v);flex-shrink:0}
+
+/* ── COUNTRY CARDS ── */
+.cc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1.1rem;cursor:pointer;border-left:4px solid var(--p);transition:transform .22s,box-shadow .22s}
+.cc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.cf{font-size:1.8rem;margin-bottom:.4rem;line-height:1}
+.cn{font-size:.95rem;font-weight:700;margin-bottom:.25rem;text-decoration:none !important}
+.cs{font-size:1.3rem;font-weight:800;color:var(--v);display:block;background:linear-gradient(135deg,var(--v),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cd{font-size:.72rem;color:#6b7280;margin-top:.25rem}
+
+/* ── CHALLENGE CARDS ── */
+.chc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem;border-left:4px solid var(--p)}
+.chc h4{font-size:.85rem;font-weight:700;margin-bottom:.35rem;color:var(--p)}
+.chc p{font-size:.74rem;color:#6b7280;line-height:1.45}
+
+/* ── PRINCIPLE CARDS ── */
+.pc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem;cursor:pointer;transition:transform .22s,box-shadow .22s;border-top:3px solid var(--b);text-align:center}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.pi{width:2.7rem;height:2.7rem;border-radius:.7rem;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin:0 auto .65rem;background:linear-gradient(135deg,var(--b),#60a5fa)}
+.pc h4{font-size:.82rem;font-weight:700;margin-bottom:.25rem}
+.pc p{font-size:.72rem;color:#6b7280}
+
+/* ── RED FLAGS ── */
+.rfl{background:#fff5f5;border:1px solid #fecaca;border-radius:var(--r);padding:1rem}
+.rfl h4{font-size:.85rem;font-weight:700;color:#dc2626;margin-bottom:.65rem;display:flex;align-items:center;gap:.45rem}
+.rfi{display:flex;align-items:flex-start;gap:.55rem;padding:.45rem 0;border-bottom:1px solid #fee2e2;font-size:.75rem;color:#374151}
+.rfi:last-child{border-bottom:none}
+.rfic{color:#dc2626;font-size:.82rem;margin-top:.1rem;flex-shrink:0}
+
+/* ── IMPACT ── */
+.ic{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem}
+.ic h4{font-size:.82rem;font-weight:700;padding-bottom:.5rem;border-bottom:2px solid var(--vl);margin-bottom:.75rem;display:flex;align-items:center;gap:.38rem}
+.ii{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid #f3f4f6;font-size:.74rem}
+.ii:last-child{border-bottom:none}
+.iv{font-weight:700;color:var(--v)}
+
+/* ── DELIVERY ── */
+.dc{background:var(--vl);border-radius:var(--r);padding:.85rem;text-align:center}
+.dc .di{font-size:1.3rem;color:var(--v);margin-bottom:.35rem}
+.dc h4{font-size:.77rem;font-weight:700;color:var(--text)}
+.dc p{font-size:.67rem;color:#6b7280;margin-top:.18rem}
+
+/* ── TECH CARDS ── */
+.tc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem;cursor:pointer;transition:transform .22s,box-shadow .22s;border-left:4px solid var(--b)}
+.tc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.tci{width:2.2rem;height:2.2rem;border-radius:.55rem;background:linear-gradient(135deg,var(--b),#60a5fa);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#fff;margin-bottom:.6rem}
+.tc h3{font-size:.85rem;font-weight:700;margin-bottom:.25rem}
+.tc p{font-size:.72rem;color:#6b7280}
+
+/* ── PLAYER CARDS ── */
+.plc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:.9rem;cursor:pointer;transition:transform .22s,box-shadow .22s;border-top:3px solid var(--p);text-align:center}
+.plc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.pli{width:2.2rem;height:2.2rem;border-radius:50%;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--p);margin:0 auto .55rem}
+.plc h4{font-size:.78rem;font-weight:700}
+.plc p{font-size:.67rem;color:#6b7280}
+
+/* ── VERIF CARDS ── */
+.vc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:1rem;cursor:pointer;transition:transform .22s,box-shadow .22s;border-left:4px solid var(--p)}
+.vc:hover{transform:translateY(-4px);box-shadow:var(--shh)}
+.vci{width:2.2rem;height:2.2rem;border-radius:.55rem;background:linear-gradient(135deg,var(--p),#f472b6);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#fff;margin-bottom:.6rem}
+.vc h3{font-size:.85rem;font-weight:700;margin-bottom:.25rem}
+.vc p{font-size:.72rem;color:#6b7280}
+
+/* ── REG NOTE ── */
+.rn{background:linear-gradient(135deg,var(--bl),#ede9fe);border:1px solid #bfdbfe;border-radius:var(--r);padding:.85rem 1.1rem;display:flex;align-items:flex-start;gap:.65rem;margin-top:.85rem}
+.rn i{color:var(--b);margin-top:.12rem;flex-shrink:0}
+.rn p{font-size:.74rem;color:#374151;line-height:1.55}
+.rn strong{color:var(--b)}
+
+/* ── MISC ── */
+.sh{font-size:.84rem;font-weight:700;color:var(--v);margin:.9rem 0 .55rem;display:flex;align-items:center;gap:.38rem}
+.lab-logo{width:2.8rem;height:2.8rem;border-radius:.65rem;object-fit:contain;background:#f9fafb;border:1px solid #e5e7eb;padding:5px;flex-shrink:0}
+.lab-logo-sm{width:2.2rem;height:2.2rem;border-radius:50%;object-fit:contain;background:#f9fafb;border:1px solid #e5e7eb;padding:3px;margin:0 auto .55rem;display:block}
+.tv{background:var(--vl);color:var(--v)}.tp{background:var(--pl);color:var(--p)}.tb{background:var(--bl);color:var(--b)}.tg{background:#d1fae5;color:#059669}.to{background:#fef3c7;color:#d97706}
+
+/* ── CONECTAMOS ── */
+.cn-section{background:#f5f7f5}
+.cn-split{display:flex;min-height:0;overflow:hidden}
+.cn-split-left{width:42%;background:#fff;position:relative;display:flex;flex-direction:column;justify-content:center;padding:2.6rem;overflow:hidden;flex-shrink:0;border-right:1px solid #e5e7eb}
+.cn-split-right{flex:1;background:var(--cg-l);display:flex;flex-direction:column;justify-content:center;gap:.65rem;padding:2.2rem}
+.cn-blob{position:absolute;border-radius:62% 38% 68% 32%/42% 58% 32% 68%;pointer-events:none}
+.cn-blob-1{width:280px;height:280px;background:rgba(58,125,68,.08);top:-90px;right:-80px}
+.cn-blob-2{width:180px;height:180px;background:rgba(59,92,169,.07);bottom:-60px;left:-60px}
+.cn-main-logo{width:82%;max-width:250px;object-fit:contain;position:relative;z-index:1;margin-bottom:1rem}
+.cn-sub{font-size:.7rem;font-weight:700;color:var(--cb2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+.cn-pill{display:inline-block;background:var(--cg);color:#fff;font-size:.61rem;font-weight:700;padding:.26rem .82rem;border-radius:999px}
+.cn-pill.blue{background:var(--cb2)}
+.cn-s-label{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--cb2);margin-bottom:.22rem}
+.cn-stk{background:#fff;border-radius:12px;padding:.68rem .95rem;display:flex;align-items:center;gap:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.07);cursor:pointer;transition:all .2s;width:100%}
+.cn-stk:hover{transform:translateX(5px);box-shadow:0 4px 18px rgba(0,0,0,.13)}
+.flip-front.cn-stk{display:flex}
+.cn-stk-icon{width:2.1rem;height:2.1rem;border-radius:.5rem;display:flex;align-items:center;justify-content:center;font-size:.88rem;color:#fff;flex-shrink:0}
+.cn-stk-t{font-size:.78rem;font-weight:800;color:#1e293b}
+.cn-stk-b{font-size:.62rem;color:#64748b;line-height:1.36;margin-top:.06rem}
+.cn-ph{display:flex;align-items:center;gap:.95rem;padding-bottom:.5rem;border-bottom:3px solid var(--cg);margin-bottom:1.5rem;flex-shrink:0}
+.cn-ph-logo{height:1.75rem;object-fit:contain}
+.cn-ph-title{font-size:1.2rem;font-weight:900;color:#1a2740;letter-spacing:-.02em}
+.cn-ph-desc{font-size:.68rem;color:#64748b;margin-top:.06rem}
+.cn-bg{display:grid;grid-template-columns:repeat(3,1fr);gap:.72rem}
+.cn-bc{background:#fff;border-radius:12px;padding:.82rem;display:flex;gap:.68rem;align-items:flex-start;box-shadow:0 2px 10px rgba(0,0,0,.07);cursor:pointer;transition:all .2s;border-bottom:3px solid var(--cg);width:100%}
+.cn-bc:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.flip-front.cn-bc{display:flex}
+.cn-bnum{min-width:1.9rem;height:1.9rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:900;color:#fff;flex-shrink:0;margin-top:.05rem}
+.cn-bt{font-size:.76rem;font-weight:800;color:#1e293b;margin-bottom:.1rem}
+.cn-bb{font-size:.63rem;color:#64748b;line-height:1.4}
+.cn-off{display:flex;gap:1rem;flex:1;min-height:0}
+.cn-off-panel{width:37%;background:var(--cb2);border-radius:16px;padding:1.8rem 1.5rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;flex-shrink:0}
+.cn-off-panel::before{content:'';position:absolute;width:210px;height:210px;border-radius:50%;background:rgba(255,255,255,.06);top:-70px;left:-70px}
+.cn-off-panel::after{content:'';position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.04);bottom:-40px;right:-40px}
+.cn-off-logo{height:1.45rem;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:1.1rem;position:relative;z-index:1}
+.cn-off-n{font-size:4.2rem;font-weight:900;color:#fff;line-height:1;position:relative;z-index:1;text-shadow:0 3px 14px rgba(0,0,0,.2)}
+.cn-off-t{font-size:.73rem;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.07em;margin-top:.4rem;line-height:1.4;position:relative;z-index:1}
+.cn-off-note{font-size:.61rem;color:rgba(255,255,255,.6);margin-top:.7rem;line-height:1.5;position:relative;z-index:1}
+.cn-off-body{flex:1;display:flex;flex-direction:column;gap:.75rem;justify-content:center}
+.cn-rg{display:grid;grid-template-columns:repeat(3,1fr);gap:.72rem}
+.cn-rc{background:#fff;border-radius:12px;padding:.88rem .95rem;display:flex;gap:.72rem;align-items:flex-start;box-shadow:0 2px 10px rgba(0,0,0,.07);cursor:pointer;transition:all .2s;border-left:4px solid var(--cb2);width:100%}
+.cn-rc:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.flip-front.cn-rc{display:flex}
+.cn-rnum{min-width:1.9rem;height:1.9rem;border-radius:50%;background:var(--cb2);display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:900;color:#fff;flex-shrink:0;margin-top:.05rem}
+.cn-rt{font-size:.76rem;font-weight:800;color:#1e293b;margin-bottom:.1rem}
+.cn-rb{font-size:.63rem;color:#64748b;line-height:1.4}
+.cn-sl{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;position:relative}
+.cn-sl::before{content:'';position:absolute;top:2rem;left:14%;right:14%;height:2px;background:linear-gradient(to right,var(--cg),var(--cb2));z-index:0;border-radius:2px}
+.cn-sc{background:#fff;border-radius:14px;padding:1.3rem .85rem .95rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.48rem;box-shadow:0 2px 12px rgba(0,0,0,.07);position:relative;z-index:1}
+.cn-sn{width:2.5rem;height:2.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.86rem;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.2);margin-top:-.15rem}
+.cn-si{font-size:1.5rem;color:var(--cg)}
+.cn-st{font-size:.77rem;font-weight:800;color:#1e293b}
+.cn-sb{font-size:.64rem;color:#64748b;line-height:1.42}
+
+/* ── CN DIVIDER ── */
+.cn-divider{background:linear-gradient(135deg,var(--cg),var(--cb2));padding:3.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;text-align:center}
+.cn-divider img{height:2.5rem;object-fit:contain;filter:brightness(0) invert(1)}
+.cn-divider span{color:rgba(255,255,255,.85);font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+
+
+
+/* ── SLIDE FRAMEWORK ── */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--v),var(--p));z-index:200;transition:width .4s ease;width:10%}
+
+.section{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:2rem 3.5rem 4rem;gap:1rem;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease;transform:translateX(40px)}
+.section.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.section.exit-left{opacity:0;transform:translateX(-40px)}
+
+#nav-dots{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);display:flex;gap:.45rem;z-index:150}
+.dot{width:.55rem;height:.55rem;border-radius:50%;border:none;background:rgba(124,58,237,.25);cursor:pointer;padding:0;transition:all .3s}
+.dot.active{background:var(--v);transform:scale(1.35)}
+
+.ab{position:fixed;bottom:1.1rem;background:rgba(255,255,255,.9);border:1px solid #ede9fe;border-radius:50%;width:2.2rem;height:2.2rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem;color:var(--v);z-index:150;transition:all .2s;box-shadow:0 2px 12px rgba(124,58,237,.15)}
+.ab:hover{background:var(--v);color:#fff;transform:scale(1.08)}
+#al{left:calc(50% - 5.5rem)}
+#ar{left:calc(50% + 3.5rem)}
+@keyframes bounceX{0%,100%{transform:scale(1.08) translateX(0)}50%{transform:scale(1.08) translateX(5px)}}
+.bounce-hint{animation:bounceX .5s ease-in-out 3}
+
+#ctr{position:fixed;bottom:1.55rem;left:50%;transform:translateX(-50%) translateX(1.4rem);font-size:.72rem;font-weight:600;color:#9ca3af;z-index:150;letter-spacing:.05em}
+
+#s0{background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 40%,#db2777 80%,#f43f5e 100%);color:#fff;justify-content:center;align-items:center;text-align:center;padding:2rem;overflow:hidden;gap:0}
+</style>
+</head>
+<body>
+
+<section class="section active" id="s0">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="hero-content">
+    <span class="hero-tag anim-item"><i class="fa-solid fa-capsules"></i> &nbsp; Carnot Salud Femenina — Industria Farmacéutica 2026</span>
+    <h1 class="anim-item">Programas de Apoyo<br>a Pacientes</h1>
+    <h2 class="anim-item">PSP — Patient Support Programs</h2>
+    <p class="hero-body anim-item">Cómo los laboratorios líderes transforman la experiencia del paciente y mejoran la adherencia hasta un 40%, con modelos operativos probados en México, LATAM y mercados globales.</p>
+    <div class="hero-stats anim-item">
+      <div class="hero-stat"><span class="num" id="cnt-1">0</span><span class="lbl">programas globales activos</span></div>
+      <div class="hero-stat"><span class="num" id="cnt-2">0</span><span class="lbl">mercado global 2025</span></div>
+      <div class="hero-stat"><span class="num" id="cnt-3">0</span><span class="lbl">mejora en adherencia</span></div>
+    </div>
+    <button class="cta-btn anim-item" onclick="goTo(1)">Explorar &nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</section>
+
+  <div class="s-item"><span class="s-num">USD $4.5B</span><span class="s-lbl">mercado global 2025</span></div>
+  <div class="s-item"><span class="s-num">12.3%</span><span class="s-lbl">CAGR 2025–2030</span></div>
+  <div class="s-item"><span class="s-num">+40%</span><span class="s-lbl">mejora en adherencia</span></div>
+</div>
+
+<!-- FUNDAMENTOS -->
+<section class="section" id="s1">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-circle-info"></i> Fundamentos</span>
+      <h2>¿Qué son los PSP?</h2>
+      <p>Ecosistema de servicios que acompaña al paciente antes, durante y después del tratamiento.</p>
+    </div>
+    <div class="sh anim-item"><i class="fa-solid fa-layer-group"></i> Tipos de programas</div>
+    <div class="g5">
+      <div class="flip-card anim-item" id="fc-fin">
+        <div class="flip-inner">
+          <div class="flip-front card" data-modal="fin" onclick="flipCard('fc-fin')">
+            <div class="ci" style="background:var(--v)"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+            <h3>Asistencia Financiera</h3>
+            <p>Copago, subsidio directo y programas de reemplazo de producto</p>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-adh">
+        <div class="flip-inner">
+          <div class="flip-front card" style="border-left-color:var(--p)" data-modal="adh" onclick="flipCard('fc-adh')">
+            <div class="ci" style="background:var(--p)"><i class="fa-solid fa-heart-pulse"></i></div>
+            <h3>Adherencia y Educación</h3>
+            <p>Recordatorios, enfermeras de apoyo y aplicaciones móviles</p>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-nav">
+        <div class="flip-inner">
+          <div class="flip-front card" style="border-left-color:var(--b)" data-modal="nav" onclick="flipCard('fc-nav')">
+            <div class="ci" style="background:var(--b)"><i class="fa-solid fa-compass"></i></div>
+            <h3>Navegación del Sistema</h3>
+            <p>Trámites de acceso, logística y coordinación de citas</p>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-rp">
+        <div class="flip-inner">
+          <div class="flip-front card" style="border-left-color:#059669" data-modal="rp" onclick="flipCard('fc-rp')">
+            <div class="ci" style="background:#059669"><i class="fa-solid fa-box-open"></i></div>
+            <h3>Reemplazo de Producto</h3>
+            <p>Muestras médicas, puentes de producto y programas de inicio</p>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-emo">
+        <div class="flip-inner">
+          <div class="flip-front card" style="border-left-color:#d97706" data-modal="emo" onclick="flipCard('fc-emo')">
+            <div class="ci" style="background:#d97706"><i class="fa-solid fa-brain"></i></div>
+            <h3>Apoyo Psicoemocional</h3>
+            <p>Grupos de apoyo, psicología y programas de bienestar mental</p>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sh anim-item" style="margin-top:2.5rem"><i class="fa-solid fa-truck-fast"></i> Modelos de entrega</div>
+    <div class="g4">
+      <div class="dc anim-item"><div class="di"><i class="fa-solid fa-mobile-screen"></i></div><h4>Digital / App</h4><p>Notificaciones, telemedicina y seguimiento automatizado</p></div>
+      <div class="dc anim-item"><div class="di"><i class="fa-solid fa-headset"></i></div><h4>Call Center 24/7</h4><p>Soporte telefónico especializado con enfermeras certificadas</p></div>
+      <div class="dc anim-item"><div class="di"><i class="fa-solid fa-user-nurse"></i></div><h4>Enfermeras a Domicilio</h4><p>Visitas presenciales, aplicación de medicamentos y educación</p></div>
+      <div class="dc anim-item"><div class="di"><i class="fa-solid fa-shuffle"></i></div><h4>Modelo Híbrido</h4><p>Combinación digital + presencial adaptada por perfil de paciente</p></div>
+    </div></section>
+
+<!-- MERCADO -->
+<section class="section" id="s2">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-globe"></i> Mercado</span>
+      <h2>Mercado Global de PSP</h2>
+      <p>Dimensionamiento y proyecciones 2025–2030 con fuentes de referencia.</p>
+    </div>
+    <div class="g4">
+      <div class="flip-card anim-item" id="fc-mkt-size">
+        <div class="flip-inner">
+          <div class="flip-front mc" data-modal="mkt-size" onclick="flipCard('fc-mkt-size')">
+            <div class="mi mv"><i class="fa-solid fa-globe"></i></div>
+            <div><div class="mn">USD $4.5B</div><div class="ml">Mercado global 2025</div><div class="ms">Fuente: Grand View Research</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-mkt-cagr">
+        <div class="flip-inner">
+          <div class="flip-front mc" data-modal="mkt-cagr" onclick="flipCard('fc-mkt-cagr')">
+            <div class="mi mp"><i class="fa-solid fa-chart-line"></i></div>
+            <div><div class="mn">12.3% CAGR</div><div class="ml">Crecimiento 2025–2030</div><div class="ms">Fuente: Allied Market Research</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-mkt-pts">
+        <div class="flip-inner">
+          <div class="flip-front mc" data-modal="mkt-pts" onclick="flipCard('fc-mkt-pts')">
+            <div class="mi mb"><i class="fa-solid fa-users"></i></div>
+            <div><div class="mn">2.1B pacientes</div><div class="ml">Con enfermedades crónicas</div><div class="ms">Fuente: OMS / WHO</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-mkt-labs">
+        <div class="flip-inner">
+          <div class="flip-front mc" data-modal="mkt-labs" onclick="flipCard('fc-mkt-labs')">
+            <div class="mi mg"><i class="fa-solid fa-pills"></i></div>
+            <div><div class="mn">+85%</div><div class="ml">Top-20 labs con PSP formal</div><div class="ms">Fuente: IFPMA 2024</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:2rem">
+      <div class="cw anim-item">
+        <div class="ct"><i class="fa-solid fa-chart-bar" style="color:var(--v)"></i> &nbsp; Mercado por región 2025 (USD miles de millones)</div>
+        <canvas id="chart-region"></canvas>
+      </div>
+      <div class="cw anim-item">
+        <div class="ct"><i class="fa-solid fa-chart-line" style="color:var(--p)"></i> &nbsp; Proyección de crecimiento 2020–2030 (USD miles de millones)</div>
+        <canvas id="chart-growth"></canvas>
+      </div>
+    </div></section>
+
+<!-- LABORATORIOS -->
+<section class="section" id="s3">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-building"></i> Industria</span>
+      <h2>Laboratorios Líderes en PSP</h2>
+      <p>Los seis grandes con los programas más robustos a nivel global y en LATAM.</p>
+    </div>
+    <div class="g3">
+      <div class="flip-card anim-item" id="fc-pfizer">
+        <div class="flip-inner">
+          <div class="flip-front lc" data-modal="pfizer" onclick="flipCard('fc-pfizer')">
+            <div class="lh"><img class="lab-logo" src="https://logo.clearbit.com/pfizer.com" alt="Pfizer" onerror="this.src='https://ui-avatars.com/api/?name=Pfizer&background=2563eb&color=fff&rounded=true'"><div><div class="ln">Pfizer</div><div style="font-size:.68rem;color:#6b7280">3 programas clave</div></div></div>
+            <div class="lps"><div class="lp-item">RxPathways — asistencia financiera USA</div><div class="lp-item">Oncology Together — soporte oncológico</div><div class="lp-item">Pfizer Conmigo MX — México</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-novartis">
+        <div class="flip-inner">
+          <div class="flip-front lc" style="border-top-color:var(--p)" data-modal="novartis" onclick="flipCard('fc-novartis')">
+            <div class="lh"><img class="lab-logo" src="https://logo.clearbit.com/novartis.com" alt="Novartis" onerror="this.src='https://ui-avatars.com/api/?name=Novartis&background=db2777&color=fff&rounded=true'"><div><div class="ln">Novartis</div><div style="font-size:.68rem;color:#6b7280">3 programas clave</div></div></div>
+            <div class="lps"><div class="lp-item">NPAF — Novartis Patient Assistance Foundation</div><div class="lp-item">ConTacto MX — reemplazo de producto</div><div class="lp-item">Adherencia en oncología</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-roche">
+        <div class="flip-inner">
+          <div class="flip-front lc" style="border-top-color:#dc2626" data-modal="roche" onclick="flipCard('fc-roche')">
+            <div class="lh"><img class="lab-logo" src="https://logo.clearbit.com/roche.com" alt="Roche" onerror="this.src='https://ui-avatars.com/api/?name=Roche&background=dc2626&color=fff&rounded=true'"><div><div class="ln">Roche</div><div style="font-size:.68rem;color:#6b7280">3 programas clave</div></div></div>
+            <div class="lps"><div class="lp-item">HOPE — ayuda acceso oncología</div><div class="lp-item">Herceptin / MabThera reemplazo</div><div class="lp-item">MS digital health program</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-az">
+        <div class="flip-inner">
+          <div class="flip-front lc" style="border-top-color:var(--b)" data-modal="az" onclick="flipCard('fc-az')">
+            <div class="lh"><img class="lab-logo" src="https://logo.clearbit.com/astrazeneca.com" alt="AstraZeneca" onerror="this.src='https://ui-avatars.com/api/?name=AZ&background=2563eb&color=fff&rounded=true'"><div><div class="ln">AstraZeneca</div><div style="font-size:.68rem;color:#6b7280">2 programas clave</div></div></div>
+            <div class="lps"><div class="lp-item">AZ&amp;ME — asistencia financiera USA</div><div class="lp-item">Patient Access Program — global</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-janssen">
+        <div class="flip-inner">
+          <div class="flip-front lc" style="border-top-color:#059669" data-modal="janssen" onclick="flipCard('fc-janssen')">
+            <div class="lh"><img class="lab-logo" src="https://logo.clearbit.com/janssen.com" alt="Janssen" onerror="this.src='https://ui-avatars.com/api/?name=J%26J&background=059669&color=fff&rounded=true'"><div><div class="ln">Janssen / J&amp;J</div><div style="font-size:.68rem;color:#6b7280">3 programas clave</div></div></div>
+            <div class="lps"><div class="lp-item">CarePath — oncología, inmunología</div><div class="lp-item">IBD Support Program</div><div class="lp-item">Spravato — salud mental</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-abbvie">
+        <div class="flip-inner">
+          <div class="flip-front lc" style="border-top-color:#d97706" data-modal="abbvie" onclick="flipCard('fc-abbvie')">
+            <div class="lh"><img class="lab-logo" src="https://logo.clearbit.com/abbvie.com" alt="AbbVie" onerror="this.src='https://ui-avatars.com/api/?name=AbbVie&background=d97706&color=fff&rounded=true'"><div><div class="ln">AbbVie</div><div style="font-size:.68rem;color:#6b7280">3 programas clave</div></div></div>
+            <div class="lps"><div class="lp-item">AbbVie Access — asistencia financiera</div><div class="lp-item">myAbbVie Assist — copago</div><div class="lp-item">IBD community &amp; support</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div></section>
+
+<!-- LATAM -->
+<section class="section" id="s4">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-earth-americas"></i> Regional</span>
+      <h2>PSP en Latinoamérica</h2>
+      <p>Panorama regional: regulación, penetración y tendencias 2025–2026.</p>
+    </div>
+    <div class="g4">
+      <div class="flip-card anim-item" id="fc-brasil">
+        <div class="flip-inner">
+          <div class="flip-front cc" data-modal="brasil" onclick="flipCard('fc-brasil')"><div class="cf">🇧🇷</div><div class="cn">Brasil</div><div class="cs">USD $120M</div><div class="cd">Mercado PSP más grande de LATAM. Regulador ANVISA.</div></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-mexico">
+        <div class="flip-inner">
+          <div class="flip-front cc" data-modal="mexico" onclick="flipCard('fc-mexico')"><div class="cf">🇲🇽</div><div class="cn">México</div><div class="cs">USD $85M</div><div class="cd">Crecimiento acelerado. COFEPRIS y NOM-220 como marco.</div></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-colombia">
+        <div class="flip-inner">
+          <div class="flip-front cc" data-modal="colombia" onclick="flipCard('fc-colombia')"><div class="cf">🇨🇴</div><div class="cn">Colombia</div><div class="cs">USD $42M</div><div class="cd">Alta cobertura pública. INVIMA regula relacionamiento.</div></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-latam-trend">
+        <div class="flip-inner">
+          <div class="flip-front cc" data-modal="latam-trend" onclick="flipCard('fc-latam-trend')"><div class="cf">🌎</div><div class="cn">Tendencias LATAM</div><div class="cs">+18% YoY</div><div class="cd">Digitalización acelerada y expansión a ciudades B/C.</div></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sh anim-item" style="margin-top:2.5rem"><i class="fa-solid fa-triangle-exclamation"></i> Desafíos regionales</div>
+    <div class="g3">
+      <div class="chc anim-item"><h4><i class="fa-solid fa-scale-unbalanced"></i> Fragmentación Regulatoria</h4><p>Cada país tiene marcos distintos. No existe un estándar LATAM único, lo que exige equipos locales con expertise regulatorio propio.</p></div>
+      <div class="chc anim-item"><h4><i class="fa-solid fa-wifi"></i> Brecha Digital</h4><p>30% de la población objetivo sin acceso a smartphone en zonas rurales. Los modelos híbridos con representantes de campo son críticos.</p></div>
+      <div class="chc anim-item"><h4><i class="fa-solid fa-language"></i> Diversidad Cultural</h4><p>Adaptación de mensajes a poblaciones indígenas, barreras de alfabetización y diferencias en la percepción de la enfermedad crónica.</p></div>
+    </div></section>
+
+<!-- MÉXICO -->
+<section class="section" id="s5">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-flag"></i> México</span>
+      <h2>PSP en México</h2>
+      <p>El ecosistema local: actores, regulación COFEPRIS y oportunidades 2026.</p>
+    </div>
+    <div class="g4">
+      <div class="mc anim-item"><div class="mi mv"><i class="fa-solid fa-peso-sign"></i></div><div><div class="mn">USD $85M</div><div class="ml">Mercado PSP México 2025</div><div class="ms">2do en LATAM</div></div></div>
+      <div class="mc anim-item"><div class="mi mp"><i class="fa-solid fa-percent"></i></div><div><div class="mn">22% CAGR</div><div class="ml">Crecimiento proyectado</div><div class="ms">2025–2028</div></div></div>
+      <div class="mc anim-item"><div class="mi mb"><i class="fa-solid fa-hospital"></i></div><div><div class="mn">130M hab.</div><div class="ml">Población total</div><div class="ms">70% acceso limitado</div></div></div>
+      <div class="mc anim-item"><div class="mi mg"><i class="fa-solid fa-syringe"></i></div><div><div class="mn">11.5M</div><div class="ml">Diabéticos diagnosticados</div><div class="ms">Mayor área de oportunidad</div></div></div>
+    </div>
+    <div class="sh anim-item" style="margin-top:2.5rem"><i class="fa-solid fa-building-columns"></i> Actores principales en México</div>
+    <div class="g5">
+      <div class="flip-card anim-item" id="fc-pfizer-mx">
+        <div class="flip-inner">
+          <div class="flip-front plc" data-modal="pfizer-mx" onclick="flipCard('fc-pfizer-mx')"><img class="lab-logo-sm" src="https://logo.clearbit.com/pfizer.com" alt="Pfizer" onerror="this.src='https://ui-avatars.com/api/?name=PF&background=2563eb&color=fff&rounded=true&size=40'"><h4>Pfizer MX</h4><p>Conmigo — oncología y enf. raras</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-novartis-mx">
+        <div class="flip-inner">
+          <div class="flip-front plc" data-modal="novartis-mx" onclick="flipCard('fc-novartis-mx')"><img class="lab-logo-sm" src="https://logo.clearbit.com/novartis.com" alt="Novartis" onerror="this.src='https://ui-avatars.com/api/?name=NV&background=7c3aed&color=fff&rounded=true&size=40'"><h4>Novartis MX</h4><p>ConTacto — reemplazo de producto</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-armstrong">
+        <div class="flip-inner">
+          <div class="flip-front plc" data-modal="armstrong" onclick="flipCard('fc-armstrong')"><img class="lab-logo-sm" src="https://logo.clearbit.com/laboratoriosarmstrong.mx" alt="Armstrong" onerror="this.src='https://ui-avatars.com/api/?name=AR&background=059669&color=fff&rounded=true&size=40'"><h4>Armstrong</h4><p>Programa Actúa — diabetes y HTA</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-adium">
+        <div class="flip-inner">
+          <div class="flip-front plc" data-modal="adium" onclick="flipCard('fc-adium')"><img class="lab-logo-sm" src="https://logo.clearbit.com/adium.com.mx" alt="Adium" onerror="this.src='https://ui-avatars.com/api/?name=AD&background=d97706&color=fff&rounded=true&size=40'"><h4>Adium / Teniba</h4><p>Adherencia especialidades</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-locales">
+        <div class="flip-inner">
+          <div class="flip-front plc" data-modal="locales" onclick="flipCard('fc-locales')"><img class="lab-logo-sm" src="https://logo.clearbit.com/pisa.com.mx" alt="Pisa" onerror="this.src='https://ui-avatars.com/api/?name=MX&background=7c3aed&color=fff&rounded=true&size=40'"><h4>Labs Locales</h4><p>Pisa, Liomont, Prod. Medix</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="rn anim-item">
+      <i class="fa-solid fa-shield-halved"></i>
+      <p><strong>Marco Regulatorio:</strong> COFEPRIS regula los PSP bajo la <strong>NOM-220-SSA1-2016</strong> (Instalación y operación de la farmacovigilancia). El relacionamiento con pacientes debe evitar la promoción encubierta. La <strong>Ley Federal de Protección de Datos Personales en Posesión de Particulares</strong> obliga a consentimiento informado explícito para todo tratamiento de datos de salud.</p>
+    </div></section>
+
+<!-- TECNOLOGÍA -->
+<section class="section" id="s6">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-microchip"></i> Innovación</span>
+      <h2>Tecnología en PSP</h2>
+      <p>Las plataformas y soluciones digitales que transforman la operación de los programas.</p>
+    </div>
+    <div class="g3">
+      <div class="flip-card anim-item" id="fc-tech-ai">
+        <div class="flip-inner">
+          <div class="flip-front tc" data-modal="tech-ai" onclick="flipCard('fc-tech-ai')"><div class="tci"><i class="fa-solid fa-robot"></i></div><h3>IA / Machine Learning</h3><p>Predicción de abandono, personalización de intervenciones y triaje automatizado. Reducción de 30% en llamadas innecesarias.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-tech-platform">
+        <div class="flip-inner">
+          <div class="flip-front tc" data-modal="tech-platform" onclick="flipCard('fc-tech-platform')"><div class="tci"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>Plataformas Integradas</h3><p>CRM especializado para PSP, integración con EHR, portal del paciente y dashboards para el laboratorio en tiempo real.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-tech-tele">
+        <div class="flip-inner">
+          <div class="flip-front tc" data-modal="tech-tele" onclick="flipCard('fc-tech-tele')"><div class="tci"><i class="fa-solid fa-video"></i></div><h3>Telemedicina</h3><p>Consultas virtuales con enfermeras y médicos, seguimiento post-infusión y revisiones de adherencia sin desplazamiento.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-tech-wear">
+        <div class="flip-inner">
+          <div class="flip-front tc" data-modal="tech-wear" onclick="flipCard('fc-tech-wear')"><div class="tci"><i class="fa-solid fa-watch"></i></div><h3>Wearables y IoT</h3><p>Dispositivos conectados para monitoreo de glucosa, inhaladores inteligentes y adherencia a inyectables auto-administrados.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-tech-chat">
+        <div class="flip-inner">
+          <div class="flip-front tc" data-modal="tech-chat" onclick="flipCard('fc-tech-chat')"><div class="tci"><i class="fa-solid fa-comments"></i></div><h3>Chatbots / WhatsApp</h3><p>Recordatorios de dosis, resolución de dudas frecuentes y escalada a enfermera humana. Canal más usado en LATAM.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-tech-analytics">
+        <div class="flip-inner">
+          <div class="flip-front tc" data-modal="tech-analytics" onclick="flipCard('fc-tech-analytics')"><div class="tci"><i class="fa-solid fa-chart-pie"></i></div><h3>Analytics y RWE</h3><p>Real World Evidence generada por PSP: adherencia, outcomes clínicos y valor demostrable para pagadores y gobierno.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div></section>
+
+<!-- COMPLIANCE -->
+<section class="section" id="s7">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-shield-halved"></i> Regulatorio</span>
+      <h2>Compliance y Ética en PSP</h2>
+      <p>Marco regulatorio internacional y principios de relacionamiento con pacientes.</p>
+    </div>
+    <div class="g4">
+      <div class="flip-card anim-item" id="fc-efpia">
+        <div class="flip-inner">
+          <div class="flip-front pc" data-modal="efpia" onclick="flipCard('fc-efpia')"><div class="pi"><i class="fa-solid fa-gavel"></i></div><h4>EFPIA Guidelines</h4><p>Guía europea de relacionamiento con pacientes. Separación estricta entre comercial y apoyo.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-ifpma-comp">
+        <div class="flip-inner">
+          <div class="flip-front pc" data-modal="ifpma-comp" onclick="flipCard('fc-ifpma-comp')"><div class="pi"><i class="fa-solid fa-earth-europe"></i></div><h4>IFPMA Code</h4><p>Código internacional: voluntariedad, independencia clínica y no condicionamiento del apoyo a prescripción.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cofepris-comp">
+        <div class="flip-inner">
+          <div class="flip-front pc" data-modal="cofepris-comp" onclick="flipCard('fc-cofepris-comp')"><div class="pi"><i class="fa-solid fa-flag"></i></div><h4>COFEPRIS MX</h4><p>NOM-220 farmacovigilancia. Registro obligatorio de eventos adversos reportados a través del PSP.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-datos-comp">
+        <div class="flip-inner">
+          <div class="flip-front pc" data-modal="datos-comp" onclick="flipCard('fc-datos-comp')"><div class="pi"><i class="fa-solid fa-database"></i></div><h4>Ley de Datos MX</h4><p>Datos sensibles de salud requieren consentimiento explícito, aviso de privacidad y opt-out en todo momento.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="rfl anim-item" style="margin-top:2rem">
+      <h4><i class="fa-solid fa-circle-exclamation"></i> Alertas de Compliance — Prácticas a Evitar</h4>
+      <div class="rfi"><i class="fa-solid fa-xmark rfic"></i><div><strong>Promoción encubierta:</strong> El PSP no puede usarse para promover el medicamento. El equipo de campo del PSP debe estar separado de la fuerza de ventas y no tener incentivos de prescripción.</div></div>
+      <div class="rfi"><i class="fa-solid fa-xmark rfic"></i><div><strong>Datos sin consentimiento:</strong> Recolectar, almacenar o compartir datos de salud del paciente sin consentimiento informado explícito viola la LFPDPPP y puede generar sanciones del INAI.</div></div>
+      <div class="rfi"><i class="fa-solid fa-xmark rfic"></i><div><strong>Condicionar apoyo a prescripción:</strong> El acceso al programa no puede estar condicionado a que el médico prescriba otro producto del laboratorio. Viola IFPMA Code Art. 7 y la Ley Federal de Competencia Económica.</div></div>
+    </div></section>
+
+<!-- MÉTRICAS -->
+<section class="section" id="s8">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-chart-column"></i> Evidencia</span>
+      <h2>Métricas e Impacto</h2>
+      <p>KPIs estándar, outcomes clínicos y ROI demostrado de programas de apoyo a pacientes.</p>
+    </div>
+    <div class="g3">
+      <div class="ic anim-item">
+        <h4 style="color:var(--v)"><i class="fa-solid fa-heart-pulse"></i> Adherencia</h4>
+        <div class="ii"><span>Adherencia promedio sin PSP</span><span class="iv">52%</span></div>
+        <div class="ii"><span>Adherencia promedio con PSP</span><span class="iv">78%</span></div>
+        <div class="ii"><span>Mejora relativa</span><span class="iv">+50%</span></div>
+        <div class="ii"><span>Reducción abandono 90 días</span><span class="iv">-38%</span></div>
+        <div class="ii"><span>Fuente</span><span style="font-size:.67rem;color:#9ca3af">ISPOR 2024</span></div>
+      </div>
+      <div class="ic anim-item">
+        <h4 style="color:var(--p)"><i class="fa-solid fa-stethoscope"></i> Outcomes Clínicos</h4>
+        <div class="ii"><span>Reducción hospitalizaciones</span><span class="iv">-22%</span></div>
+        <div class="ii"><span>Visitas urgencias evitadas</span><span class="iv">-18%</span></div>
+        <div class="ii"><span>Control glucémico HbA1c</span><span class="iv">-1.2pp</span></div>
+        <div class="ii"><span>Calidad de vida (EQ-5D)</span><span class="iv">+0.14</span></div>
+        <div class="ii"><span>Fuente</span><span style="font-size:.67rem;color:#9ca3af">ICER 2024</span></div>
+      </div>
+      <div class="ic anim-item">
+        <h4 style="color:var(--b)"><i class="fa-solid fa-coins"></i> ROI para el Laboratorio</h4>
+        <div class="ii"><span>ROI promedio PSP oncología</span><span class="iv">3.8x</span></div>
+        <div class="ii"><span>Incremento ventas netas</span><span class="iv">+14%</span></div>
+        <div class="ii"><span>Reducción churn de pacientes</span><span class="iv">-31%</span></div>
+        <div class="ii"><span>NPS pacientes en PSP</span><span class="iv">72 pts</span></div>
+        <div class="ii"><span>Fuente</span><span style="font-size:.67rem;color:#9ca3af">IQVIA 2025</span></div>
+      </div>
+    </div>
+    <div class="cw anim-item" style="margin-top:2rem">
+      <div class="ct"><i class="fa-solid fa-chart-bar" style="color:var(--v)"></i> &nbsp; Adherencia con vs. sin PSP por área terapéutica (%)</div>
+      <canvas id="chart-impact" style="max-height:220px"></canvas>
+    </div></section>
+
+<!-- VERIFICACIÓN DE CAMPO -->
+<section class="section" id="s9">
+      <div class="sec-header anim-item">
+      <span class="sec-tag"><i class="fa-solid fa-magnifying-glass"></i> Operaciones</span>
+      <h2>Verificación de Campo</h2>
+      <p>Herramientas y metodologías para auditar la calidad y cumplimiento del PSP en terreno.</p>
+    </div>
+    <div class="g3">
+      <div class="flip-card anim-item" id="fc-verif-nurses">
+        <div class="flip-inner">
+          <div class="flip-front vc" data-modal="verif-nurses" onclick="flipCard('fc-verif-nurses')"><div class="vci"><i class="fa-solid fa-user-nurse"></i></div><h3>Enfermeras de Campo</h3><p>Visitas presenciales auditadas con KPIs de interacción, tiempos de respuesta y satisfacción del paciente. Gestión con ICON plc.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-verif-calls">
+        <div class="flip-inner">
+          <div class="flip-front vc" data-modal="verif-calls" onclick="flipCard('fc-verif-calls')"><div class="vci"><i class="fa-solid fa-phone-volume"></i></div><h3>Auditorías de Llamadas</h3><p>Grabación y análisis de 100% de interacciones en call center. Speech analytics con IA para detección de desviaciones de script.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-verif-geo">
+        <div class="flip-inner">
+          <div class="flip-front vc" data-modal="verif-geo" onclick="flipCard('fc-verif-geo')"><div class="vci"><i class="fa-solid fa-map-location-dot"></i></div><h3>Geolocalización</h3><p>Verificación de visitas domiciliarias con geofencing. Integración con Veeva para correlación con prescripciones del médico.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-verif-surveys">
+        <div class="flip-inner">
+          <div class="flip-front vc" data-modal="verif-surveys" onclick="flipCard('fc-verif-surveys')"><div class="vci"><i class="fa-solid fa-clipboard-check"></i></div><h3>Encuestas al Paciente</h3><p>NPS transaccional post-interacción, encuestas PROMS y entrevistas de profundidad trimestral con Qualtrics.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-verif-analytics">
+        <div class="flip-inner">
+          <div class="flip-front vc" data-modal="verif-analytics" onclick="flipCard('fc-verif-analytics')"><div class="vci"><i class="fa-solid fa-chart-line"></i></div><h3>Analytics en Tiempo Real</h3><p>Dashboard IQVIA con métricas de adherencia, alertas de abandono y KPIs del PSP actualizados cada 24 horas.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-verif-regulatory">
+        <div class="flip-inner">
+          <div class="flip-front vc" data-modal="verif-regulatory" onclick="flipCard('fc-verif-regulatory')"><div class="vci"><i class="fa-solid fa-file-medical"></i></div><h3>Reportes Regulatorios</h3><p>Farmacovigilancia automática: extracción de eventos adversos de interacciones del PSP y reporte a COFEPRIS según NOM-220.</p></div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div></section>
+
+<!-- S10 CONECTAMOS INTRO -->
+<section class="section cn-section" id="s10" style="padding:0;gap:0">
+  <div class="cn-split">
+    <div class="cn-split-left anim-item">
+      <div class="cn-blob cn-blob-1"></div>
+      <div class="cn-blob cn-blob-2"></div>
+      <img src="LOGO CONECTAMOS-01.png" class="cn-main-logo" alt="Conectamos">
+      <div class="cn-sub">Programa de Soporte al Paciente</div>
+      <div class="cn-pill-row" style="display:flex;gap:.45rem;flex-wrap:wrap">
+        <span class="cn-pill">Solidenat</span>
+        <span class="cn-pill blue">Carnot</span>
+        <span class="cn-pill" style="background:#555">México</span>
+      </div>
+      <p style="font-size:.68rem;color:#64748b;margin-top:.9rem;line-height:1.55;max-width:18rem">Acompañamiento integral desde la primera dosis hasta el seguimiento al año — sin costo para el paciente.</p>
+    </div>
+    <div class="cn-split-right">
+      <div class="cn-s-label anim-item">¿A quién beneficia?</div>
+      <div class="flip-card anim-item" id="fc-cn-pac">
+        <div class="flip-inner">
+          <div class="cn-stk flip-front" data-modal="cn-paciente" onclick="flipCard('fc-cn-pac')">
+            <div class="cn-stk-icon" style="background:var(--cg)"><i class="fa-solid fa-user-injured"></i></div>
+            <div><div class="cn-stk-t">Paciente</div><div class="cn-stk-b">Acompañamiento integral en cada etapa del tratamiento de osteoporosis</div></div>
+            <i class="fa-solid fa-chevron-right" style="margin-left:auto;color:#cbd5e1;font-size:.65rem;flex-shrink:0"></i>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-med">
+        <div class="flip-inner">
+          <div class="cn-stk flip-front" data-modal="cn-medico" onclick="flipCard('fc-cn-med')">
+            <div class="cn-stk-icon" style="background:var(--cb2)"><i class="fa-solid fa-stethoscope"></i></div>
+            <div><div class="cn-stk-t">Médico</div><div class="cn-stk-b">Valor agregado a su práctica y mayor adherencia de sus pacientes</div></div>
+            <i class="fa-solid fa-chevron-right" style="margin-left:auto;color:#cbd5e1;font-size:.65rem;flex-shrink:0"></i>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-rep">
+        <div class="flip-inner">
+          <div class="cn-stk flip-front" data-modal="cn-rep" onclick="flipCard('fc-cn-rep')">
+            <div class="cn-stk-icon" style="background:linear-gradient(135deg,var(--cg),var(--cb2))"><i class="fa-solid fa-briefcase"></i></div>
+            <div><div class="cn-stk-t">Representante</div><div class="cn-stk-b">Diferenciación vs. competencia y estabilidad mensual en ventas</div></div>
+            <i class="fa-solid fa-chevron-right" style="margin-left:auto;color:#cbd5e1;font-size:.65rem;flex-shrink:0"></i>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 BENEFICIOS -->
+<section class="section cn-section" id="s11">
+      <div class="cn-ph anim-item">
+      <img src="LOGO CONECTAMOS-01.png" class="cn-ph-logo" alt="Conectamos">
+      <div>
+        <div class="cn-ph-title">Beneficios para el Paciente</div>
+        <div class="cn-ph-desc">6 beneficios concretos desde la inscripción hasta el seguimiento al año</div>
+      </div>
+    </div>
+    <div class="cn-bg">
+      <div class="flip-card anim-item" id="fc-cn-inicio">
+        <div class="flip-inner">
+          <div class="cn-bc flip-front" data-modal="cn-inicio" onclick="flipCard('fc-cn-inicio')">
+            <div class="cn-bnum" style="background:var(--cg)">01</div>
+            <div><div class="cn-bt">Inicio Sin Costo</div><div class="cn-bb">Primera dotación de Solidenat en el domicilio del paciente sin cargo alguno</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-whatsapp">
+        <div class="flip-inner">
+          <div class="cn-bc flip-front" data-modal="cn-whatsapp" onclick="flipCard('fc-cn-whatsapp')" style="border-bottom-color:#25d366">
+            <div class="cn-bnum" style="background:#25d366">02</div>
+            <div><div class="cn-bt">Seguimiento Digital</div><div class="cn-bb">WhatsApp y texto para confirmar continuidad, recordatorios y acompañamiento activo</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-precios">
+        <div class="flip-inner">
+          <div class="cn-bc flip-front" data-modal="cn-precios" onclick="flipCard('fc-cn-precios')" style="border-bottom-color:var(--cb2)">
+            <div class="cn-bnum" style="background:var(--cb2)">03</div>
+            <div><div class="cn-bt">Precios Exclusivos</div><div class="cn-bb">Descuentos en paquetes y promociones especiales solo para miembros</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-densito">
+        <div class="flip-inner">
+          <div class="cn-bc flip-front" data-modal="cn-densito" onclick="flipCard('fc-cn-densito')">
+            <div class="cn-bnum" style="background:var(--cg)">04</div>
+            <div><div class="cn-bt">Densitometría Gratis</div><div class="cn-bb">Densitometría ósea sin costo al cumplir un año en el programa</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-nutri">
+        <div class="flip-inner">
+          <div class="cn-bc flip-front" data-modal="cn-nutri" onclick="flipCard('fc-cn-nutri')">
+            <div class="cn-bnum" style="background:var(--cg)">05</div>
+            <div><div class="cn-bt">Asesoría Integral</div><div class="cn-bb">Nutrición y apoyo psicoemocional sin costo para mejorar calidad de vida</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-repo">
+        <div class="flip-inner">
+          <div class="cn-bc flip-front" data-modal="cn-repo" onclick="flipCard('fc-cn-repo')" style="border-bottom-color:var(--cb2)">
+            <div class="cn-bnum" style="background:var(--cb2)">06</div>
+            <div><div class="cn-bt">Repositorio de Estudios</div><div class="cn-bb">Estudios clínicos y materiales educativos centralizados en un solo lugar</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div></section>
+
+<!-- S12 OFERTA -->
+<section class="section cn-section" id="s12" style="padding:2rem 3.5rem 4rem;gap:0">
+      <div class="cn-off">
+      <div class="cn-off-panel anim-item">
+        <img src="LOGO CONECTAMOS-01.png" class="cn-off-logo" alt="Conectamos">
+        <div class="cn-off-n">4+1</div>
+        <div class="cn-off-t">Compra 4<br>lleva 1 sin costo</div>
+        <div class="cn-off-note">Registra tus compras en la plataforma — no importa en qué farmacia compres</div>
+      </div>
+      <div class="cn-off-body">
+        <div style="font-size:.72rem;font-weight:800;color:#1a2740;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem">Oferta por Adherencia</div>
+        <p style="font-size:.7rem;color:#64748b;line-height:1.55;margin-bottom:.6rem">El programa incentiva la continuidad del tratamiento con una mecánica simple basada en el registro de compras. No importa dónde compre el paciente — lo importante es registrar su adherencia.</p>
+        <div class="flip-card anim-item" id="fc-cn-oferta41">
+          <div class="flip-inner">
+            <div class="cn-rc flip-front" data-modal="cn-oferta41" onclick="flipCard('fc-cn-oferta41')" style="border-left-color:var(--cg)">
+              <div class="cn-rnum" style="background:var(--cg)"><i class="fa-solid fa-gift" style="font-size:.7rem"></i></div>
+              <div><div class="cn-rt">Mecánica 4+1</div><div class="cn-rb">Por cada 4 meses registrados en la plataforma, el paciente recibe 1 unidad sin costo</div></div>
+            </div>
+            <div class="flip-back"></div>
+          </div>
+        </div>
+        <div class="flip-card anim-item" id="fc-cn-oferta3">
+          <div class="flip-inner">
+            <div class="cn-rc flip-front" data-modal="cn-oferta3" onclick="flipCard('fc-cn-oferta3')">
+              <div class="cn-rnum"><i class="fa-solid fa-percent" style="font-size:.7rem"></i></div>
+              <div><div class="cn-rt">Descuento Paquete x3</div><div class="cn-rb">Descuentos especiales disponibles en la compra de paquetes de 3 unidades de Solidenat</div></div>
+            </div>
+            <div class="flip-back"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S13 REGLAS -->
+<section class="section cn-section" id="s13">
+      <div class="cn-ph anim-item">
+      <img src="LOGO CONECTAMOS-01.png" class="cn-ph-logo" alt="Conectamos">
+      <div>
+        <div class="cn-ph-title">Reglas del Programa</div>
+        <div class="cn-ph-desc">El éxito de Conectamos depende de ejecutarlo con integridad y compliance</div>
+      </div>
+    </div>
+    <div class="cn-rg">
+      <div class="flip-card anim-item" id="fc-cn-regla-obj">
+        <div class="flip-inner">
+          <div class="cn-rc flip-front" data-modal="cn-regla-obj" onclick="flipCard('fc-cn-regla-obj')" style="border-left-color:var(--cg)">
+            <div class="cn-rnum" style="background:var(--cg)">01</div>
+            <div><div class="cn-rt">El Objetivo NO es Vender</div><div class="cn-rb">La venta es consecuencia del acompañamiento honesto, nunca el fin en sí mismo</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-regla-dist">
+        <div class="flip-inner">
+          <div class="cn-rc flip-front" data-modal="cn-regla-dist" onclick="flipCard('fc-cn-regla-dist')">
+            <div class="cn-rnum">02</div>
+            <div><div class="cn-rt">Signufarma NO es Proveedor</div><div class="cn-rb">El programa opera directamente con el paciente — distribuidor fuera del flujo</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-regla-seg">
+        <div class="flip-inner">
+          <div class="cn-rc flip-front" data-modal="cn-regla-seg" onclick="flipCard('fc-cn-regla-seg')">
+            <div class="cn-rnum">03</div>
+            <div><div class="cn-rt">No para Médicos de Botiquín</div><div class="cn-rb">Exclusivo para especialistas con práctica activa en manejo de osteoporosis</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-regla-reg">
+        <div class="flip-inner">
+          <div class="cn-rc flip-front" data-modal="cn-regla-reg" onclick="flipCard('fc-cn-regla-reg')">
+            <div class="cn-rnum">04</div>
+            <div><div class="cn-rt">Control Exhaustivo de Registros</div><div class="cn-rb">Receta válida y aviso de privacidad firmado obligatorio para cada inscrito</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+      <div class="flip-card anim-item" id="fc-cn-regla-canal">
+        <div class="flip-inner">
+          <div class="cn-rc flip-front" data-modal="cn-regla-canal" onclick="flipCard('fc-cn-regla-canal')" style="border-left-color:var(--cg)">
+            <div class="cn-rnum" style="background:var(--cg)">05</div>
+            <div><div class="cn-rt">El Rep NO Registra Pacientes</div><div class="cn-rb">El autoregistro garantiza consentimiento informado genuino del propio paciente</div></div>
+          </div>
+          <div class="flip-back"></div>
+        </div>
+      </div>
+    </div></section>
+
+<!-- S14 INSCRIPCIÓN -->
+<section class="section" id="s14" style="background:#f0f4f0">
+      <div class="cn-ph anim-item">
+      <img src="LOGO CONECTAMOS-01.png" class="cn-ph-logo" alt="Conectamos">
+      <div>
+        <div class="cn-ph-title">Cómo Inscribirse</div>
+        <div class="cn-ph-desc">4 pasos desde el celular — menos de 5 minutos, acceso inmediato a todos los beneficios</div>
+      </div>
+    </div>
+    <div class="cn-sl">
+      <div class="cn-sc anim-item">
+        <div class="cn-sn" style="background:var(--cg)">1</div>
+        <i class="fa-solid fa-qrcode cn-si"></i>
+        <div class="cn-st">Escanear el QR</div>
+        <div class="cn-sb">El médico entrega la tarjeta Conectamos. El paciente escanea el QR con su celular para acceder al portal del programa.</div>
+      </div>
+      <div class="cn-sc anim-item">
+        <div class="cn-sn" style="background:var(--cb2)">2</div>
+        <i class="fa-solid fa-user-check cn-si" style="color:var(--cb2)"></i>
+        <div class="cn-st">Registro y Privacidad</div>
+        <div class="cn-sb">Acepta el aviso de privacidad y completa sus datos: nombre, teléfono, correo y médico tratante.</div>
+      </div>
+      <div class="cn-sc anim-item">
+        <div class="cn-sn" style="background:var(--cg)">3</div>
+        <i class="fa-solid fa-prescription cn-si"></i>
+        <div class="cn-st">Cargar Receta</div>
+        <div class="cn-sb">Carga una foto de la receta de Solidenat. El sistema la valida y activa la inscripción con todos los beneficios.</div>
+      </div>
+      <div class="cn-sc anim-item">
+        <div class="cn-sn" style="background:var(--cb2)">4</div>
+        <i class="fa-solid fa-circle-check cn-si" style="color:var(--cb2)"></i>
+        <div class="cn-st">Confirmación Activa</div>
+        <div class="cn-sb">Recibe un mensaje de confirmación. Comienza su acompañamiento integral con Conectamos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="progress-bar"></div>
+<nav id="nav-dots" aria-label="Navegación"></nav>
+<button class="ab" id="al" aria-label="Anterior" onclick="navigate(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+<div id="ctr">1 / 15</div>
+<button class="ab" id="ar" aria-label="Siguiente" onclick="navigate(1)"><i class="fa-solid fa-chevron-right"></i></button>
+
+<div id="detail-panel">
+  <div class="dp-backdrop" onclick="closeFlip()"></div>
+  <div class="dp-inner"><div id="dp-content"></div></div>
+</div>
+
+<script>
+const MODALS = {
+  fin:{icon:'fa-hand-holding-dollar',bg:'var(--v)',title:'Asistencia Financiera',sub:'Copago, subsidio directo y reemplazo de producto',items:[
+    {name:'Pfizer RxPathways',tag:'tb',tagTxt:'USA',detail:'Programa líder de asistencia financiera en EUA: conecta pacientes elegibles con seguros, cupones de copago y medicina gratuita.',url:'https://www.pfizerrxpathways.com'},
+    {name:'AbbVie Access',tag:'tv',tagTxt:'Global',detail:'Reducción de copago en Humira, Skyrizi, Rinvoq y oncología. Proceso de calificación en línea en minutos.',url:'https://www.abbvieaccess.com'},
+    {name:'AZ&ME (AstraZeneca)',tag:'tb',tagTxt:'USA',detail:'Asistencia para pacientes sin seguro o con cobertura insuficiente. Incluye Farxiga, Brilinta y biológicos oncológicos.',url:'https://www.azandme.com'},
+    {name:'Janssen CarePath',tag:'tg',tagTxt:'USA',detail:'Tarjeta de copago y soporte de adherencia para Stelara, Tremfya, Erleada y Darzalex.',url:'https://www.janssencarepath.com'},
+  ]},
+  adh:{icon:'fa-heart-pulse',bg:'var(--p)',title:'Adherencia y Educación',sub:'Recordatorios, enfermeras de apoyo y aplicaciones móviles',items:[
+    {name:'Sidekick Health',tag:'tb',tagTxt:'Global',detail:'Plataforma SaaS de adherencia con IA. Gamificación, coaching digital y conectividad con wearables para 50+ laboratorios.',url:'https://www.sidekickhealth.com'},
+    {name:'NPAF — Novartis',tag:'tv',tagTxt:'USA',detail:'Novartis Patient Assistance Foundation: apoyo financiero y de adherencia para pacientes de bajos recursos en EUA.',url:'https://www.npaf.org'},
+    {name:'Bayer MyCareTeam',tag:'tp',tagTxt:'Global',detail:'Enfermeras dedicadas y app móvil para pacientes con Xarelto y Eylea. Recordatorios, educación y seguimiento.',url:'https://www.bayer.com'},
+  ]},
+  nav:{icon:'fa-compass',bg:'var(--b)',title:'Navegación del Sistema',sub:'Trámites de acceso, logística y coordinación',items:[
+    {name:'Courier Health',tag:'tb',tagTxt:'USA',detail:'Plataforma de case management para pacientes oncológicos: trámites de prior authorization, acceso a fondos de emergencia y coordinación de infusiones.',url:'https://www.courierhealth.com'},
+    {name:'Pfizer Oncology Together',tag:'tv',tagTxt:'USA',detail:'Navegación integral para pacientes de oncología Pfizer: equipo de especialistas en acceso, transporte y apoyo emocional.',url:'https://www.pfizeroncologytogether.com'},
+  ]},
+  rp:{icon:'fa-box-open',bg:'#059669',title:'Reemplazo de Producto',sub:'Muestras médicas, bridge programs e inicio de tratamiento',items:[
+    {name:'Pfizer Conmigo MX',tag:'tv',tagTxt:'México',detail:'Programa de reemplazo y bridge en México para oncología y enfermedades raras. Registro en portal web o vía médico tratante.',url:'https://pfizerconmigo.com.mx'},
+    {name:'Programa Actúa (Armstrong)',tag:'tg',tagTxt:'México',detail:'Programa de adherencia y reemplazo parcial para diabetes tipo 2 e hipertensión. Red de farmacias participantes en 32 estados.',url:'https://www.programaactua.com'},
+    {name:'Novartis ConTacto MX',tag:'tp',tagTxt:'México',detail:'Tienda Novartis México con acceso a medicamentos especializados. Psoriasis, oncología y neurología.',url:'https://tienda.novartis.com.mx'},
+  ]},
+  emo:{icon:'fa-brain',bg:'#d97706',title:'Apoyo Psicoemocional',sub:'Grupos de apoyo, psicología y bienestar mental',items:[
+    {name:'AbbVie IBD Soothe',tag:'to',tagTxt:'Global',detail:'Comunidad digital y programa de apoyo psicológico para pacientes con Enfermedad Inflamatoria Intestinal tratados con Humira o Rinvoq.',url:'https://www.abbvieaccess.com'},
+    {name:'Roche HOPE',tag:'tp',tagTxt:'Global',detail:'Helping Oncology Patients Excel: psicólogos oncológicos, grupos de pares y recursos de bienestar para pacientes de cáncer de mama y pulmón.',url:'https://www.roche.com'},
+  ]},
+  'mkt-size':{icon:'fa-globe',bg:'linear-gradient(135deg,var(--v),#a78bfa)',title:'Mercado Global PSP — USD $4.5B (2025)',sub:'Fuente: Grand View Research — PSP Market Report 2025',items:[
+    {name:'Grand View Research',tag:'tv',tagTxt:'Fuente',detail:'Informe "Patient Support Programs Market Size, Share & Trends Analysis Report" 2024. CAGR proyectado de 12.3% para 2025-2030.',url:'https://www.grandviewresearch.com'},
+  ]},
+  'mkt-cagr':{icon:'fa-chart-line',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'12.3% CAGR — Crecimiento PSP 2025–2030',sub:'Fuente: Allied Market Research',items:[
+    {name:'Allied Market Research',tag:'tp',tagTxt:'Fuente',detail:'Proyección de crecimiento del mercado global de PSP impulsado por crónicas, oncología y enfermedades raras.',url:'https://www.alliedmarketresearch.com'},
+  ]},
+  'mkt-pts':{icon:'fa-users',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'2.1 Billones de pacientes crónicos',sub:'Fuente: Organización Mundial de la Salud (OMS)',items:[
+    {name:'OMS — World Health Organization',tag:'tb',tagTxt:'Fuente',detail:'Global Health Estimates 2023: 2.1 billones de personas viven con al menos una enfermedad crónica no transmisible.',url:'https://www.who.int'},
+  ]},
+  'mkt-labs':{icon:'fa-pills',bg:'linear-gradient(135deg,#059669,#34d399)',title:'+85% de los Top-20 labs con PSP formal',sub:'Fuente: IFPMA Industry Report 2024',items:[
+    {name:'IFPMA — Federación Int. Fabricantes Farmacéuticos',tag:'tg',tagTxt:'Fuente',detail:'International Federation of Pharmaceutical Manufacturers & Associations. Reporte anual sobre programas de acceso a pacientes.',url:'https://www.ifpma.org'},
+  ]},
+  pfizer:{icon:'fa-pills',bg:'var(--b)',title:'Pfizer — Programas de Pacientes',sub:'Líder global en PSP oncológico y enfermedades raras',items:[
+    {name:'Pfizer RxPathways',tag:'tb',tagTxt:'USA',detail:'Programa paraguas que conecta pacientes con asistencia de copago, seguros médicos y medicina gratuita. +1M pacientes atendidos.',url:'https://www.pfizerrxpathways.com'},
+    {name:'Pfizer Oncology Together',tag:'tv',tagTxt:'USA',detail:'Soporte integral para pacientes oncológicos: navegación, apoyo emocional, transporte y asistencia financiera.',url:'https://www.pfizeroncologytogether.com'},
+    {name:'Pfizer Conmigo MX',tag:'tp',tagTxt:'México',detail:'Programa mexicano de reemplazo y bridge para oncología y enfermedades raras. Registro vía médico o directamente.',url:'https://pfizerconmigo.com.mx'},
+  ]},
+  novartis:{icon:'fa-dna',bg:'var(--p)',title:'Novartis — Programas de Pacientes',sub:'PSP innovadores en oncología, neurología y cardiología',items:[
+    {name:'NPAF (Novartis Patient Assistance Foundation)',tag:'tp',tagTxt:'USA',detail:'Asistencia financiera para pacientes sin seguro en EUA. Cobertura para Kisqali, Entresto, Cosentyx y más.',url:'https://www.npaf.org'},
+    {name:'Novartis ConTacto MX',tag:'tv',tagTxt:'México',detail:'Portal de acceso a medicamentos especializados en México. Psoriasis, oncología, neurología.',url:'https://tienda.novartis.com.mx'},
+    {name:'Adherencia Oncología Novartis',tag:'tg',tagTxt:'Global',detail:'Programa de seguimiento digital con app y enfermeras para Kisqali (cáncer de mama) y Kymriah (terapia CAR-T).',url:'https://www.novartis.com'},
+  ]},
+  roche:{icon:'fa-flask',bg:'#dc2626',title:'Roche — Programas de Pacientes',sub:'Oncología de precisión y neurología: líderes en impacto clínico',items:[
+    {name:'Roche HOPE',tag:'tp',tagTxt:'Global',detail:'Helping Oncology Patients Excel. Apoyo psicoemocional, grupos de pares y recursos educativos para cáncer de mama, pulmón y colon.',url:'https://www.roche.com'},
+    {name:'Herceptin / MabThera Reemplazo',tag:'tv',tagTxt:'LATAM',detail:'Programa de reemplazo de producto para pacientes en tratamiento con anticuerpos monoclonales en LATAM.',url:'https://www.roche.com'},
+    {name:'MS Digital Health',tag:'tb',tagTxt:'Global',detail:'Plataforma digital para Esclerosis Múltiple (Ocrevus): seguimiento de síntomas, infusiones y adherencia.',url:'https://www.roche.com'},
+  ]},
+  az:{icon:'fa-lungs',bg:'var(--b)',title:'AstraZeneca — Programas de Pacientes',sub:'Cardiología, diabetes y oncología torácica',items:[
+    {name:'AZ&ME',tag:'tb',tagTxt:'USA',detail:'Para pacientes sin seguro o seguro insuficiente. Farxiga, Brilinta, Imfinzi, Tagrisso. Proceso 100% en línea.',url:'https://www.azandme.com'},
+    {name:'AZ Patient Access Program',tag:'tg',tagTxt:'Global',detail:'Programa global de acceso con diferenciación por mercado emergente y desarrollado. Incluye precios escalonados y donaciones.',url:'https://www.astrazeneca.com'},
+  ]},
+  janssen:{icon:'fa-microscope',bg:'#059669',title:'Janssen / J&J — Programas de Pacientes',sub:'Inmunología, oncología y salud mental',items:[
+    {name:'Janssen CarePath',tag:'tg',tagTxt:'USA',detail:'Asistencia de copago para Stelara, Tremfya, Erleada, Darzalex y Spravato. App móvil con recursos de adherencia.',url:'https://www.janssencarepath.com'},
+    {name:'IBD Support Program',tag:'tb',tagTxt:'Global',detail:'Comunidad y apoyo para Enfermedad de Crohn y Colitis Ulcerativa. Educación, nutrición y psicología.',url:'https://www.janssencarepath.com'},
+    {name:'Spravato Support',tag:'tp',tagTxt:'USA',detail:'Programa especializado para depresión resistente al tratamiento. Coordinación de REMS, administración supervisada y seguimiento.',url:'https://www.spravato.com'},
+  ]},
+  abbvie:{icon:'fa-capsules',bg:'#d97706',title:'AbbVie — Programas de Pacientes',sub:'Inmunología y oncología: acceso y adherencia',items:[
+    {name:'AbbVie Access',tag:'to',tagTxt:'USA',detail:'Para Humira, Skyrizi, Rinvoq y oncología. Asistencia según ingreso familiar con calificación en línea en minutos.',url:'https://www.abbvieaccess.com'},
+    {name:'myAbbVie Assist',tag:'tv',tagTxt:'USA',detail:'Programa de medicina gratuita para pacientes sin seguro que califican. Envío directo al domicilio.',url:'https://www.abbvieaccess.com'},
+    {name:'IBD Community AbbVie',tag:'tg',tagTxt:'Global',detail:'Plataforma de comunidad para pacientes con Crohn y CU: psicólogos, nutriólogos y comunidad de pares.',url:'https://www.abbvie.com'},
+  ]},
+  brasil:{icon:'fa-earth-americas',bg:'#059669',title:'Brasil — Mercado PSP',sub:'El mayor mercado de PSP en Latinoamérica',items:[
+    {name:'ANVISA — Regulador Sanitario',tag:'tg',tagTxt:'Regulatorio',detail:'Agência Nacional de Vigilância Sanitária. Regula los programas de apoyo a pacientes en Brasil bajo RDC 204/2017 y Marco Regulatório de Inovação.',url:'https://www.gov.br/anvisa'},
+  ]},
+  mexico:{icon:'fa-flag',bg:'var(--v)',title:'México — Mercado PSP',sub:'2do mercado PSP en LATAM con crecimiento de 22% CAGR',items:[
+    {name:'COFEPRIS',tag:'tv',tagTxt:'Regulatorio',detail:'Comisión Federal para la Protección contra Riesgos Sanitarios. Marco: NOM-220 farmacovigilancia y lineamientos de relacionamiento con pacientes.',url:'https://www.gob.mx/cofepris'},
+  ]},
+  colombia:{icon:'fa-earth-americas',bg:'var(--p)',title:'Colombia — Mercado PSP',sub:'Alta cobertura pública y crecimiento digital',items:[
+    {name:'INVIMA',tag:'tp',tagTxt:'Regulatorio',detail:'Instituto Nacional de Vigilancia de Medicamentos y Alimentos. Regula el relacionamiento de laboratorios con pacientes bajo la Resolución 1403 y acuerdos de acceso.',url:'https://www.invima.gov.co'},
+  ]},
+  'latam-trend':{icon:'fa-chart-line',bg:'linear-gradient(135deg,var(--v),var(--p))',title:'Tendencias PSP en LATAM 2025–2026',sub:'Digitalización, expansión y nuevos modelos de acceso',items:[
+    {name:'IFPMA — Informe LATAM',tag:'tv',tagTxt:'Tendencias',detail:'Digitalización acelerada de PSP: WhatsApp como canal principal en Brasil y México. Expansión a ciudades B/C. Modelos híbridos dominantes.',url:'https://www.ifpma.org'},
+  ]},
+  'pfizer-mx':{icon:'fa-pills',bg:'var(--b)',title:'Pfizer México — Conmigo',sub:'PSP de oncología y enfermedades raras en México',items:[
+    {name:'Pfizer Conmigo MX',tag:'tb',tagTxt:'México',detail:'Programa de reemplazo y bridge program para oncología (Ibrance, Xalkori, Lorbrena) y enfermedades raras. Registro directo o vía médico.',url:'https://pfizerconmigo.com.mx'},
+  ]},
+  'novartis-mx':{icon:'fa-dna',bg:'var(--p)',title:'Novartis México — ConTacto',sub:'Acceso a especialidades y reemplazo de producto',items:[
+    {name:'Novartis ConTacto MX',tag:'tp',tagTxt:'México',detail:'Portal de venta directa y programa de reemplazo para Cosentyx (psoriasis), Entresto (cardiología) y Kisqali (oncología).',url:'https://tienda.novartis.com.mx'},
+  ]},
+  armstrong:{icon:'fa-flask-vial',bg:'#059669',title:'Laboratorios Armstrong — Programa Actúa',sub:'PSP en diabetes e hipertensión en México',items:[
+    {name:'Programa Actúa',tag:'tg',tagTxt:'México',detail:'Programa de adherencia, educación y reemplazo parcial para pacientes con Diabetes Tipo 2 e Hipertensión Arterial. Red de 3,200 farmacias participantes.',url:'https://www.programaactua.com'},
+  ]},
+  adium:{icon:'fa-box-open',bg:'#d97706',title:'Adium / Teniba — PSP Especialidades',sub:'Programas de adherencia para especialidades en México',items:[
+    {name:'Programas Adium México',tag:'to',tagTxt:'México',detail:'Programas de adherencia para reumatología, dermatología y neurología. Enfermeras de soporte y plataforma digital propietaria.',url:'https://www.programaactua.com'},
+  ]},
+  locales:{icon:'fa-store',bg:'var(--v)',title:'Laboratorios Locales México',sub:'Pisa, Liomont, Productos Medix y otros',items:[
+    {name:'Pisa Farmacéutica',tag:'tv',tagTxt:'México',detail:'Programas de acceso hospitalario y adherencia para oncología y terapias de soporte. Red de distribución nacional.',url:'https://www.pisa.com.mx'},
+  ]},
+  'tech-ai':{icon:'fa-robot',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'IA / Machine Learning en PSP',sub:'Predicción de abandono y personalización',items:[
+    {name:'Sidekick Health',tag:'tb',tagTxt:'Plataforma',detail:'Motor de IA para predicción de adherencia. Análisis de comportamiento digital, gamificación adaptativa y alertas tempranas para gestores de PSP.',url:'https://www.sidekickhealth.com'},
+    {name:'Veeva CRM for PSP',tag:'tv',tagTxt:'CRM',detail:'Suite de CRM especializado para programas de pacientes: case management, seguimiento y analytics integrados.',url:'https://www.veeva.com'},
+  ]},
+  'tech-platform':{icon:'fa-mobile-screen-button',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'Plataformas Integradas de PSP',sub:'CRM + portal paciente + analytics',items:[
+    {name:'Courier Health',tag:'tb',tagTxt:'USA',detail:'Plataforma de orquestación para PSP oncológicos. Integración con EHR, prior auth automatizada y portal del paciente.',url:'https://www.courierhealth.com'},
+  ]},
+  'tech-tele':{icon:'fa-video',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'Telemedicina en PSP',sub:'Consultas virtuales y seguimiento remoto',items:[
+    {name:'Teladoc Health',tag:'tb',tagTxt:'Global',detail:'Plataforma de telemedicina integrada a PSP para seguimiento post-infusión, revisión de adherencia y enfermería virtual.',url:'https://www.teladochealth.com'},
+  ]},
+  'tech-wear':{icon:'fa-watch',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'Wearables e IoT para PSP',sub:'Monitoreo continuo y adherencia verificable',items:[
+    {name:'Propeller Health',tag:'tb',tagTxt:'USA',detail:'Sensor para inhaladores que mide adherencia en tiempo real. Integrado con PSP de AstraZeneca y GSK para Asma y EPOC.',url:'https://www.propellerhealth.com'},
+  ]},
+  'tech-chat':{icon:'fa-comments',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'Chatbots y WhatsApp en PSP',sub:'Canal principal en LATAM para recordatorios y soporte',items:[
+    {name:'Twilio — PSP Messaging',tag:'tb',tagTxt:'Plataforma',detail:'API de mensajería para recordatorios de dosis vía WhatsApp, SMS y voz. HIPAA compliant. Usado por 30+ laboratorios en LATAM.',url:'https://www.twilio.com'},
+  ]},
+  'tech-analytics':{icon:'fa-chart-pie',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'Analytics y Real World Evidence',sub:'Datos del PSP como fuente de evidencia clínica',items:[
+    {name:'IQVIA — PSP Analytics',tag:'tb',tagTxt:'Global',detail:'Suite analítica para PSP: adherencia en tiempo real, predicción de abandono, outcomes clínicos y reportes regulatorios automatizados.',url:'https://www.iqvia.com'},
+  ]},
+  efpia:{icon:'fa-gavel',bg:'linear-gradient(135deg,var(--b),#60a5fa)',title:'EFPIA — Patient Support Programs Guidelines',sub:'Marco europeo para el diseño y operación de PSP',items:[
+    {name:'EFPIA PSP Guidelines',tag:'tb',tagTxt:'Europa',detail:'Guías EFPIA para programas de apoyo a pacientes: principios de voluntariedad, separación de funciones comerciales, consentimiento y transparencia.',url:'https://www.efpia.eu/relationships-with-patients/patient-solutions-guidelines/'},
+  ]},
+  'ifpma-comp':{icon:'fa-earth-europe',bg:'var(--b)',title:'IFPMA Code — Compliance PSP',sub:'Código internacional de ética en PSP',items:[
+    {name:'IFPMA Code of Practice',tag:'tb',tagTxt:'Global',detail:'Art. 7: prohibición de condicionar acceso a prescripción. Art. 9: datos de pacientes. Código 2022 con revisión 2025.',url:'https://www.ifpma.org'},
+  ]},
+  'cofepris-comp':{icon:'fa-flag',bg:'var(--v)',title:'COFEPRIS — Marco Regulatorio PSP México',sub:'NOM-220 y lineamientos de farmacovigilancia',items:[
+    {name:'COFEPRIS — NOM-220',tag:'tv',tagTxt:'México',detail:'NOM-220-SSA1-2016: instalación y operación de la farmacovigilancia. Los PSP deben reportar eventos adversos detectados en sus interacciones con pacientes.',url:'https://www.gob.mx/cofepris'},
+  ]},
+  'datos-comp':{icon:'fa-database',bg:'var(--p)',title:'Ley Federal de Datos Personales — México',sub:'Protección de datos sensibles de salud en PSP',items:[
+    {name:'LFPDPPP — DOF',tag:'tp',tagTxt:'México',detail:'Ley Federal de Protección de Datos Personales en Posesión de Particulares. Aviso de privacidad, consentimiento explícito y opt-out para datos de salud.',url:'https://www.dof.gob.mx'},
+  ]},
+  'verif-nurses':{icon:'fa-user-nurse',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'Enfermeras de Campo — Verificación',sub:'Visitas presenciales auditadas con KPIs clínicos',items:[
+    {name:'ICON plc — Field Nursing',tag:'tp',tagTxt:'Global',detail:'CRO líder en gestión de enfermeras de campo para PSP. KPIs: tiempo de respuesta, satisfacción paciente, adherencia post-visita.',url:'https://www.iconplc.com'},
+  ]},
+  'verif-calls':{icon:'fa-phone-volume',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'Auditorías de Llamadas',sub:'Speech analytics e IA para control de calidad',items:[
+    {name:'NICE — Quality Management',tag:'tp',tagTxt:'Global',detail:'Plataforma de speech analytics e IA para auditoría de 100% de interacciones en call center de PSP. Detección de desviaciones de script y riesgos de compliance.',url:'https://www.nice.com'},
+  ]},
+  'verif-geo':{icon:'fa-map-location-dot',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'Geolocalización y Verificación de Visitas',sub:'Geofencing y correlación con prescripciones',items:[
+    {name:'Veeva — Field Activity Management',tag:'tp',tagTxt:'Global',detail:'Módulo de geolocalización de visitas domiciliarias con geofencing. Correlación de actividad de campo con datos de prescripción y adherencia.',url:'https://www.veeva.com'},
+  ]},
+  'verif-surveys':{icon:'fa-clipboard-check',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'Encuestas al Paciente — Experiencia',sub:'NPS transaccional, PROMS y entrevistas profundas',items:[
+    {name:'Qualtrics — Patient Experience',tag:'tp',tagTxt:'Global',detail:'NPS post-interacción en tiempo real, encuestas PROMS (Patient-Reported Outcome Measures) y herramientas de investigación cualitativa para PSP.',url:'https://www.qualtrics.com'},
+  ]},
+  'verif-analytics':{icon:'fa-chart-line',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'Analytics en Tiempo Real — IQVIA',sub:'Dashboard de PSP con KPIs actualizados cada 24 horas',items:[
+    {name:'IQVIA — PSP Analytics Platform',tag:'tp',tagTxt:'Global',detail:'Suite de analytics en tiempo real: adherencia por cohorte, alertas de abandono, ROI del programa, comparativo vs. benchmark de industria.',url:'https://www.iqvia.com'},
+  ]},
+  'verif-regulatory':{icon:'fa-file-medical',bg:'linear-gradient(135deg,var(--p),#f472b6)',title:'Reportes Regulatorios Automáticos',sub:'Farmacovigilancia automatizada — NOM-220',items:[
+    {name:'COFEPRIS — Farmacovigilancia',tag:'tp',tagTxt:'México',detail:'Sistema VIGIFLOW-COFEPRIS: reporte de eventos adversos detectados en PSP. Los programas deben tener procedimientos documentados de captura y escalada.',url:'https://www.gob.mx/cofepris'},
+  ]},
+  'cn-paciente':{icon:'fa-user-injured',bg:'var(--p)',title:'Beneficios para el Paciente',sub:'Acompañamiento integral en cada etapa del tratamiento',items:[
+    {name:'Inicio de tratamiento sin costo',tag:'tg',tagTxt:'Financiero',detail:'El paciente recibe su primera dotación de Solidenat sin costo en su domicilio, eliminando la barrera económica que suele impedir el arranque del tratamiento en osteoporosis.',url:''},
+    {name:'Seguimiento vía WhatsApp y texto',tag:'tv',tagTxt:'Digital',detail:'Mensajes automáticos para confirmar continuidad, recordar dosis y acompañar al paciente en los momentos clave del tratamiento.',url:''},
+    {name:'Precios y promociones exclusivas',tag:'tb',tagTxt:'Económico',detail:'Descuentos en paquetes de tratamiento y ofertas especiales disponibles únicamente para miembros activos del programa Conectamos.',url:''},
+    {name:'Densitometría ósea sin costo al año',tag:'tp',tagTxt:'Clínico',detail:'Al cumplir 12 meses en el programa, el paciente accede a una densitometría ósea gratuita para evaluar objetivamente la respuesta al tratamiento con Solidenat.',url:''},
+    {name:'Asesoría nutricional y emocional',tag:'to',tagTxt:'Bienestar',detail:'Acceso sin costo a nutriólogos especializados en salud ósea y a apoyo psicoemocional para mejorar la calidad de vida durante el tratamiento de largo plazo.',url:''},
+    {name:'Repositorio de estudios y materiales',tag:'tg',tagTxt:'Educación',detail:'Repositorio centralizado con estudios clínicos sobre osteoporosis, materiales educativos exclusivos y guías de estilo de vida.',url:''},
+  ]},
+  'cn-medico':{icon:'fa-stethoscope',bg:'var(--b)',title:'Valor Agregado para el Médico',sub:'Diferenciación en el manejo de pacientes con osteoporosis',items:[
+    {name:'Adherencia comprobable de sus pacientes',tag:'tb',tagTxt:'Clínico',detail:'El médico puede verificar la continuidad del tratamiento de sus pacientes a través de la plataforma Conectamos, mejorando los outcomes clínicos de su práctica.',url:''},
+    {name:'Diferenciación vs. competencia',tag:'tv',tagTxt:'Práctica',detail:'Ofrecer Conectamos a sus pacientes agrega valor tangible a su práctica y refuerza la relación médico-paciente con un programa de salud digital estructurado y medible.',url:''},
+    {name:'Acceso a repositorio de evidencia',tag:'tg',tagTxt:'Ciencia',detail:'Acceso al repositorio de estudios clínicos de Solidenat y materiales de apoyo para reforzar la comunicación científica con sus pacientes.',url:''},
+  ]},
+  'cn-rep':{icon:'fa-briefcase',bg:'var(--v)',title:'Ventaja para el Representante Carnot',sub:'Herramienta de diferenciación y estabilidad comercial',items:[
+    {name:'Diferenciación vs. competencia',tag:'tv',tagTxt:'Comercial',detail:'Conectamos es un argumento de venta único: un PSP completo para Solidenat que ningún competidor en el segmento de osteoporosis puede igualar hoy en México.',url:''},
+    {name:'Estabilidad de desplazamientos mensuales',tag:'tg',tagTxt:'Ventas',detail:'Los pacientes registrados generan compras recurrentes y predecibles, estabilizando los desplazamientos mensuales del representante.',url:''},
+    {name:'Visibilidad del estatus de sus pacientes',tag:'tp',tagTxt:'Gestión',detail:'La plataforma permite al representante ver el estatus de los pacientes de su territorio — quiénes están adherentes, quiénes en riesgo de abandono.',url:''},
+  ]},
+  'cn-inicio':{icon:'fa-box-heart',bg:'var(--v)',title:'Inicio de Tratamiento Sin Costo',sub:'Primera dotación entregada en el domicilio del paciente',items:[
+    {name:'Sin barrera económica al arranque',tag:'tg',tagTxt:'Beneficio',detail:'El paciente recibe su primera dotación de Solidenat sin ningún costo, eliminando la principal barrera de inicio en enfermedades crónicas como la osteoporosis.',url:''},
+    {name:'Entrega directa a domicilio',tag:'tv',tagTxt:'Logística',detail:'El programa coordina la entrega directamente en el domicilio del paciente — sin necesidad de visitar una farmacia para el arranque del tratamiento.',url:''},
+  ]},
+  'cn-whatsapp':{icon:'fa-comments',bg:'#25d366',title:'Seguimiento Digital del Paciente',sub:'WhatsApp y mensajes de texto como canal de adherencia',items:[
+    {name:'Confirmación de continuidad',tag:'tg',tagTxt:'Adherencia',detail:'El sistema envía mensajes automáticos para confirmar que el paciente sigue tomando su tratamiento, permitiendo detectar y revertir abandonos de forma temprana.',url:''},
+    {name:'Recordatorios y acompañamiento activo',tag:'tv',tagTxt:'Digital',detail:'Recordatorios de dosis, citas médicas y renovación de receta enviados por WhatsApp en los momentos clave del tratamiento.',url:''},
+  ]},
+  'cn-precios':{icon:'fa-tag',bg:'var(--b)',title:'Precios y Promociones Exclusivas',sub:'Descuentos disponibles solo para miembros Conectamos',items:[
+    {name:'Descuento en paquetes de 3 unidades',tag:'tg',tagTxt:'Ahorro',detail:'Descuentos especiales disponibles en la compra de paquetes de 3 unidades de Solidenat para pacientes activos inscritos en el programa Conectamos.',url:''},
+    {name:'Acceso prioritario a promociones Carnot',tag:'tv',tagTxt:'Exclusivo',detail:'Los pacientes del programa tienen acceso prioritario a promociones y ofertas especiales de la línea Carnot en sus farmacias participantes.',url:''},
+  ]},
+  'cn-densito':{icon:'fa-bone',bg:'var(--p)',title:'Densitometría Ósea Sin Costo',sub:'Seguimiento clínico objetivo del resultado del tratamiento',items:[
+    {name:'Densitometría gratuita al año',tag:'tg',tagTxt:'Clínico',detail:'Al cumplir 12 meses en el programa, el paciente accede a una densitometría ósea sin costo para evaluar la respuesta al tratamiento con Solidenat de forma objetiva.',url:''},
+    {name:'Evidencia tangible del progreso',tag:'tv',tagTxt:'Adherencia',detail:'El resultado de la densitometría refuerza la adherencia: el paciente ve en números el beneficio real del tratamiento.',url:''},
+  ]},
+  'cn-nutri':{icon:'fa-apple-whole',bg:'#059669',title:'Asesoría Nutricional y Emocional',sub:'Apoyo integral al bienestar del paciente con osteoporosis',items:[
+    {name:'Nutriólogos especializados en salud ósea',tag:'tg',tagTxt:'Nutrición',detail:'Acceso a asesoría nutricional con especialistas en calcio, vitamina D y estilo de vida para potenciar el efecto clínico de Solidenat sin ningún costo adicional.',url:''},
+    {name:'Apoyo psicoemocional sin costo',tag:'tv',tagTxt:'Bienestar',detail:'Acompañamiento emocional para pacientes con diagnóstico reciente de osteoporosis, reduciendo la ansiedad y mejorando la aceptación del tratamiento de largo plazo.',url:''},
+  ]},
+  'cn-repo':{icon:'fa-database',bg:'#7c3aed',title:'Repositorio de Estudios y Materiales',sub:'Educación y evidencia científica en un solo lugar',items:[
+    {name:'Estudios clínicos centralizados',tag:'tg',tagTxt:'Ciencia',detail:'Repositorio digital con estudios clínicos sobre osteoporosis y Solidenat, accesible para pacientes y médicos desde la plataforma Conectamos en cualquier momento.',url:''},
+    {name:'Materiales educativos exclusivos',tag:'tv',tagTxt:'Educación',detail:'Guías de estilo de vida, infografías sobre salud ósea y materiales de prevención disponibles solo para los pacientes inscritos en el programa Conectamos.',url:''},
+  ]},
+  'cn-oferta41':{icon:'fa-gift',bg:'linear-gradient(135deg,var(--v),var(--b))',title:'Mecánica 4+1 — Por tu Adherencia',sub:'Compra 4 meses registrados, lleva 1 sin costo',items:[
+    {name:'Mecánica simple y flexible',tag:'tg',tagTxt:'Cómo funciona',detail:'Por cada 4 meses de tratamiento comprados y registrados en la plataforma Conectamos, el paciente recibe 1 unidad adicional de Solidenat sin ningún costo adicional.',url:''},
+    {name:'Cualquier farmacia, un solo registro',tag:'tv',tagTxt:'Flexibilidad',detail:'No importa dónde compre el paciente — la clave es que registre sus compras en la plataforma Conectamos. El beneficio se activa por el registro de adherencia, no por el punto de compra.',url:''},
+  ]},
+  'cn-oferta3':{icon:'fa-percent',bg:'var(--b)',title:'Descuento en Paquete de 3 Unidades',sub:'Ahorro garantizado en compra trimestral de tratamiento',items:[
+    {name:'Ahorro en compra de largo plazo',tag:'tg',tagTxt:'Económico',detail:'Los pacientes inscritos en Conectamos acceden a descuentos especiales al comprar paquetes de 3 unidades de Solidenat, incentivando la compra de largo plazo y la adherencia.',url:''},
+  ]},
+  'cn-regla-obj':{icon:'fa-bullseye',bg:'var(--v)',title:'El Objetivo NO es Vender',sub:'La venta es consecuencia de hacer bien el acompañamiento',items:[
+    {name:'Filosofía central del programa',tag:'tg',tagTxt:'Principio',detail:'El objetivo de Conectamos es dar un acompañamiento integral y honesto al padecimiento del paciente. La venta es la consecuencia natural de ejecutar bien el programa — nunca debe ser la motivación principal del representante.',url:''},
+  ]},
+  'cn-regla-dist':{icon:'fa-truck',bg:'var(--b)',title:'Signufarma NO es el Proveedor del Programa',sub:'El programa opera directamente para el paciente final',items:[
+    {name:'Canal de distribución del programa',tag:'tv',tagTxt:'Operación',detail:'Signufarma como distribuidor NO es el proveedor del programa a pacientes. Conectamos opera a través de sus propios canales de entrega y seguimiento directamente con el paciente — sin intermediarios distribuidores.',url:''},
+  ]},
+  'cn-regla-seg':{icon:'fa-hospital',bg:'var(--p)',title:'No es un Plan para Médicos de Botiquín',sub:'Diseñado para especialistas en manejo activo de osteoporosis',items:[
+    {name:'Perfil de médico elegible',tag:'tg',tagTxt:'Elegibilidad',detail:'Conectamos está diseñado para médicos con práctica activa en salud ósea: reumatólogos, internistas, geriatras y ginecólogos que manejan pacientes con osteoporosis de forma sistemática.',url:''},
+  ]},
+  'cn-regla-reg':{icon:'fa-clipboard-list',bg:'#d97706',title:'Control Exhaustivo de Registros de Pacientes',sub:'La plataforma requiere registro formal de cada inscrito',items:[
+    {name:'Registro obligatorio y verificable',tag:'tg',tagTxt:'Compliance',detail:'El programa considera un control exhaustivo de registros de pacientes. Cada inscrito debe completar su perfil con datos verídicos, receta válida y aviso de privacidad firmado en la plataforma.',url:''},
+    {name:'El representante NO puede registrar por el paciente',tag:'tp',tagTxt:'Restricción',detail:'No es posible que el representante Carnot registre pacientes como forma de servicio. El registro debe ser realizado por el propio paciente para garantizar la validez del consentimiento informado.',url:''},
+  ]},
+  'cn-regla-canal':{icon:'fa-mobile-screen',bg:'#059669',title:'Autoregistro por el Propio Paciente',sub:'El consentimiento informado solo es válido del propio paciente',items:[
+    {name:'Flujo de autoregistro digital',tag:'tv',tagTxt:'Digital',detail:'El paciente escanea el QR del material Conectamos o de la tarjeta del programa, acepta el aviso de privacidad y completa su registro cargando su receta de Solidenat — sin intermediarios.',url:''},
+  ]},
+};
+
+
+function buildFlips() {
+  document.querySelectorAll('.flip-back').forEach(back => {
+    back.innerHTML = '<i class="fa-solid fa-circle-info" style="color:rgba(255,255,255,.35);font-size:1.8rem"></i>';
+  });
+}
+
+let currentFlipped = null;
+function flipCard(id) {
+  if (currentFlipped && currentFlipped !== id) {
+    document.getElementById(currentFlipped).classList.remove('flipped');
+  }
+  const fc = document.getElementById(id);
+  fc.classList.add('flipped');
+  currentFlipped = id;
+  const front = fc.querySelector('[data-modal]');
+  const key = front?.dataset.modal;
+  if (!key || !MODALS[key]) return;
+  const d = MODALS[key];
+  document.getElementById('dp-content').innerHTML = `
+    <div class="dp-header">
+      <div class="dp-icon" style="background:${d.bg}"><i class="fa-solid ${d.icon}"></i></div>
+      <div style="flex:1;min-width:0">
+        <div class="dp-title">${d.title}</div>
+        <div class="dp-sub">${d.sub}</div>
+      </div>
+      <button class="dp-close" onclick="closeFlip()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    ${d.items.map(it => `
+      <div class="back-item">
+        <div class="bi-name">${it.name}</div>
+        <span class="bi-tag ${it.tag}">${it.tagTxt}</span>
+        <div class="bi-detail">${it.detail}</div>
+        ${it.url ? `<a href="${it.url}" target="_blank" rel="noopener">Ver fuente <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
+      </div>`).join('')}`;
+  const inner = document.querySelector('.dp-inner');
+  inner.style.animation = 'none';
+  void inner.offsetWidth;
+  inner.style.animation = '';
+  document.getElementById('detail-panel').classList.add('open');
+}
+function closeFlip() {
+  if (currentFlipped) {
+    document.getElementById(currentFlipped).classList.remove('flipped');
+    currentFlipped = null;
+  }
+  document.getElementById('detail-panel').classList.remove('open');
+}
+
+
+// SECTION ENTRANCE ANIMATIONS
+function animateSection(idx) {
+  const sec = document.querySelectorAll('.section')[idx];
+  const items = sec.querySelectorAll('.anim-item');
+  items.forEach(el => { el.classList.remove('entered'); void el.offsetWidth; });
+  items.forEach((el, i) => { setTimeout(() => el.classList.add('entered'), 50 + i * 70); });
+}
+
+// COUNTER ANIMATION
+let countersRun = false;
+function animateCounter(el, target, prefix, suffix) {
+  const dur = 1400; const start = performance.now();
+  const run = (now) => {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = (prefix||'') + Math.round(ease * target).toLocaleString() + (suffix||'');
+    if (p < 1) requestAnimationFrame(run);
+  };
+  requestAnimationFrame(run);
+}
+function runHeroCounters() {
+  if (countersRun) return; countersRun = true;
+  animateCounter(document.getElementById('cnt-1'), 3200, '', '+');
+  animateCounter(document.getElementById('cnt-2'), 4, 'USD $', '.5B');
+  animateCounter(document.getElementById('cnt-3'), 40, '', '%');
+}
+
+// NAVIGATION
+const TOTAL = 15; let cur = 0; const charts = {};
+let bounceTimer = null;
+
+function buildDots() {
+  const nav = document.getElementById('nav-dots');
+  for (let i = 0; i < TOTAL; i++) {
+    const b = document.createElement('button');
+    b.className = 'dot' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', 'Sección ' + (i + 1));
+    b.onclick = () => goTo(i);
+    nav.appendChild(b);
+  }
+}
+
+function goTo(idx) {
+  if (idx < 0 || idx >= TOTAL || idx === cur) return;
+  const ss = document.querySelectorAll('.section');
+  ss[cur].classList.remove('active'); ss[cur].classList.add('exit-left');
+  setTimeout(() => ss[cur].classList.remove('exit-left'), 450);
+  cur = idx; ss[cur].classList.add('active');
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+  document.getElementById('ctr').textContent = (cur + 1) + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((cur + 1) / TOTAL * 100) + '%';
+  maybeInitChart(cur);
+  animateSection(cur);
+  if (cur === 0) runHeroCounters();
+  resetBounce();
+}
+function navigate(dir) { goTo(cur + dir); }
+
+function resetBounce() {
+  const ar = document.getElementById('ar');
+  ar.classList.remove('bounce-hint'); clearTimeout(bounceTimer);
+  if (cur < TOTAL - 1) {
+    bounceTimer = setTimeout(() => {
+      ar.classList.add('bounce-hint');
+      setTimeout(() => ar.classList.remove('bounce-hint'), 2000);
+    }, 3000);
+  }
+}
+
+// CHARTS — triggered by slide index
+const CD = { plugins:{legend:{labels:{font:{family:'Poppins',size:11},color:'#374151'}}}, scales:{x:{ticks:{font:{family:'Poppins',size:10},color:'#6b7280'},grid:{color:'#f3f4f6'}},y:{ticks:{font:{family:'Poppins',size:10},color:'#6b7280'},grid:{color:'#f3f4f6'}}} };
+function maybeInitChart(idx) {
+  if (idx === 2 && !charts.region) {
+    charts.region = new Chart(document.getElementById('chart-region'), { type:'bar', data:{labels:['Norteamérica','Europa','Asia-Pac.','LATAM','Otros'],datasets:[{label:'USD miles de millones',data:[1.8,1.2,0.9,0.4,0.2],backgroundColor:['#7c3aed','#db2777','#2563eb','#059669','#d97706'],borderRadius:6}]}, options:{...CD,responsive:true,plugins:{legend:{display:false}}} });
+    charts.growth = new Chart(document.getElementById('chart-growth'), { type:'line', data:{labels:['2020','2021','2022','2023','2024','2025','2026','2027','2028','2029'],datasets:[{label:'USD miles de millones',data:[2.1,2.8,3.2,3.8,4.5,5.2,6.0,6.8,7.5,8.2],borderColor:'#7c3aed',backgroundColor:'rgba(124,58,237,0.1)',fill:true,tension:0.4,pointBackgroundColor:'#7c3aed',pointRadius:4}]}, options:{...CD,responsive:true} });
+  }
+  if (idx === 8 && !charts.impact) {
+    charts.impact = new Chart(document.getElementById('chart-impact'), { type:'bar', data:{labels:['Diabetes','Oncología','Cardiología','Inmunología','Enf. Raras'],datasets:[{label:'Sin PSP',data:[62,48,70,55,40],backgroundColor:'rgba(209,213,219,0.85)',borderRadius:5},{label:'Con PSP',data:[85,73,88,79,67],backgroundColor:'rgba(124,58,237,0.85)',borderRadius:5}]}, options:{...CD,responsive:true,scales:{...CD.scales,y:{...CD.scales.y,min:0,max:100,ticks:{...CD.scales.y.ticks,callback:v=>v+'%'}}}} });
+  }
+}
+
+// KEYBOARD
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' && !document.getElementById('detail-panel').classList.contains('open')) navigate(1);
+  if (e.key === 'ArrowLeft' && !document.getElementById('detail-panel').classList.contains('open')) navigate(-1);
+  if (e.key === 'Escape') closeFlip();
+});
+
+// INIT
+buildDots();
+buildFlips();
+document.getElementById('ctr').textContent = '1 / ' + TOTAL;
+document.getElementById('progress-bar').style.width = (1 / TOTAL * 100) + '%';
+animateSection(0);
+runHeroCounters();
+resetBounce();
+</script>
+</body>
+</html>
